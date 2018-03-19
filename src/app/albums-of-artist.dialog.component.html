@@ -1,0 +1,15 @@
+<div id="header">
+    <h1>{{ title }} ({{getNumberOfListeners()}} Listeners)</h1>
+    <button type="button" id="btn-go-to-artist" md-raised-button (click)="dialogRef.close(true)">Go To Artist</button>
+</div>
+<div id="content">
+    <md-grid-list cols="4" gutterSize="5" *ngIf="albums">
+        <md-grid-tile *ngFor="let album of albums; let i = index;"
+            [colspan]="1"
+            [rowspan]="1" [ngStyle]="{'background-image': 'url(' + album.imageURL + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}" (click)="openDialog(artist)">
+            <h2 class="albumImageTitle"><b>{{i + 1}}</b> - {{album.name}}</h2>
+            <h3 class="albumPlaycount">{{album.playcount}} Scrobbles</h3>
+            <h4 class="albumListenerCount">{{getListenersOfAlbum(i)}} Listeners</h4>
+        </md-grid-tile>
+    </md-grid-list>
+</div>

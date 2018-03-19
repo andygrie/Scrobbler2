@@ -1,0 +1,41 @@
+.artistImageTitle{
+    background: rgba(0, 0, 0, 0.61);
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+}
+.artistPlaycount{
+    background: rgba(0, 0, 0, 0.61);
+    width: 100%;
+    color: white;
+    text-align: left;
+    padding: 7.5px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 5px;
+}
+
+#title-friends{
+    position: fixed;
+    width : calc(100% - 64px);
+    top: 100px;
+    left: 32px;
+    background-color: #fff;
+    z-index: 1000;
+    padding: 5px;
+}
+
+#spinner_holder{
+    position: fixed;
+    left: calc(50% - 24px);
+    top: 0;
+    width: 80px;
+    height: 80px;
+    z-index: 1000;
+}
+#list-artists{
+    margin-top: 150px;
+}

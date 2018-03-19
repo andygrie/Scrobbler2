@@ -1,0 +1,37 @@
+<div id="filter-buttons">
+    <h1>{{title}} ({{getDateTitle()}})</h1>
+    <button md-raised-button (click)="changeTimeRange(-1)" [disabled]="timeButtonsDisabled">All</button>
+    <button md-raised-button (click)="changeTimeRange(12)" [disabled]="timeButtonsDisabled">1 Year</button>
+    <button md-raised-button (click)="changeTimeRange(9)" [disabled]="timeButtonsDisabled">9 Months</button>
+    <button md-raised-button (click)="changeTimeRange(6)" [disabled]="timeButtonsDisabled">6 Months</button>
+    <button md-raised-button (click)="changeTimeRange(3)" [disabled]="timeButtonsDisabled">3 Months</button>
+    <button md-raised-button (click)="changeTimeRange(1)" [disabled]="timeButtonsDisabled">1 Month</button>
+    <my-date-range-picker id="albumDateRange" [options]="myDateRangePickerOptions" [(ngModel)]="dateRange" (dateRangeChanged)="onDateRangeChanged($event)"></my-date-range-picker>
+</div>
+<md-grid-list cols="6" gutterSize="5" id="list-albums">
+    <md-grid-tile *ngIf="topAlbum && topAlbum.image" (click)="goToAlbum(topAlbum.name, topAlbum.artist['#text'])"
+        [colspan]="2"
+        [rowspan]="2" [ngStyle]="{'background-image': 'url(' + topAlbum.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
+        <h2 class="albumImageTitle"><b>{{topAlbum['@attr'].rank}}</b> - {{topAlbum.name}}</h2>
+        <h3 class="albumPlaycount">{{topAlbum.playcount}} scrobbles</h3>
+    </md-grid-tile>
+    <md-grid-tile *ngFor="let album of topNineAlbums; let i = index;" (click)="goToAlbum(album.name, album.artist['#text'])"
+        [colspan]="1"
+        [rowspan]="1"  [ngStyle]="{'background-image': 'url(' + album.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
+        <h2 class="albumImageTitle"><b>{{album['@attr'].rank}}</b> - {{album.name}}</h2>
+        <h3 class="albumPlaycount">{{album.playcount}} scrobbles</h3>
+    </md-grid-tile>
+</md-grid-list>
+<md-grid-list cols="9" gutterSize="5" *ngIf="restOfAlbums" id="listRestOfAlbums">
+    <md-grid-tile *ngFor="let album of restOfAlbums; let i = index;" (click)="goToAlbum(album.name, album.artist['#text'])"
+        [colspan]="1"
+        [rowspan]="1"  [ngStyle]="{'background-image': 'url(' + album.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
+        <h2 class="restOfAlbumImageTitle"><b>{{album['@attr'].rank}}</b> - {{album.name}}</h2>
+        <h3 class="restOfAlbumPlaycount">{{album.playcount}} scrobbles</h3>
+    </md-grid-tile>
+</md-grid-list>
+<div id="spinner_holder">
+    <my-spinner [isRunning]="isRequesting"></my-spinner>
+</div>
+<div id="scroll-helper">
+</div>

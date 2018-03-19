@@ -1,0 +1,23 @@
+tr{
+    margin: 10px;
+}
+#table-new-releases{
+    width:100%;
+}
+.column-type{
+    width: 10%;
+    font-size: 0.9em;
+    color: #8c8c8c;
+}
+.column-date{
+    width: 10%;
+}
+.column-artist{
+    width: 40%;
+}
+.column-album{
+    width: 40%;
+}
+.type-album .column-album, .type-album .column-artist{
+    font-weight: bold;
+}

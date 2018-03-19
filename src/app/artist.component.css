@@ -1,0 +1,67 @@
+chart {
+    width:100%;
+    float: left;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+md-list-item, md-list-item .md-list-item-inner, md-checkbox {
+    min-height: 100%;
+}
+md-list-item {
+    min-height: 100%;
+    height: 2em;
+}
+md-card{
+    opacity: 0.9;
+}
+#list-tags, #list-user-albums, #list-global-albums{
+    margin-bottom: 10px;
+}
+#left-side{
+    width: calc(50% - 5px);
+    float: left;
+}
+.similar-artist-imagetitle, .album-imagetitle{
+    background: rgba(0, 0, 0, 0.61);
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    font-size: 1em;
+}
+.album-playcount{
+    background: rgba(0, 0, 0, 0.61);
+    width: 100%;
+    color: white;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    margin-left: 5px;
+    font-size: 0.8em;
+    padding: 5px;
+}
+#artist-info, #album-statistics{
+    margin-bottom: 10px;
+}
+#right-side{
+    width: calc(50% - 5px);
+    float: right;
+}
+#artist-background{
+    width : 100%;
+    z-index: -2;
+}
+.blurred{
+    position: fixed;
+    top: 150px;
+    left: 0;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+}
+.not-blurred{
+    position: absolute;
+    top: 150px;
+    left: 0;
+}

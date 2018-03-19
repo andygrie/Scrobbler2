@@ -1,0 +1,59 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css';
+body{
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+.spinner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 100px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  background-color: blue;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
+}
+
+.table-link{
+  color: #000;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.table-trackinfo-link{
+  font-size: 2em;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.table-trackdate{
+  font-size: 1.5em;
+}

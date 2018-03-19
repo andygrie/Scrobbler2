@@ -1,0 +1,35 @@
+body {margin:0;}
+#app-content{
+    padding : 24px;
+    margin-top: 200px;
+}
+#app-header{
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+}
+.now-playing{
+    float:right;
+    right: 25px;
+    top: 10px;
+    width: calc(33% - 25px);
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+#menu-buttons{
+    float: left;
+    left: 25px;
+    margin: 10px;
+    width: calc(66% - 25px);
+}
+.nav-button{
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}

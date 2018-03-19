@@ -1,0 +1,16 @@
+<table id="table-new-releases">
+    <tr *ngFor="let album of albums | orderbydate" [class.type-album]="album['primary-type'] == 'Album'">
+        <td class="column-date">
+            {{album["first-release-date"]}}
+        </td>
+        <td class="column-artist">
+            {{album.artist}}
+        </td>
+        <td  class="column-album">
+            {{album.title}}
+        </td>
+        <td  class="column-type">
+            ({{album["primary-type"]}})
+        </td>
+    <tr>
+<table>
