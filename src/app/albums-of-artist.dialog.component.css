@@ -1,30 +1,30 @@
-.albumImageTitle{
-    background: rgba(0, 0, 0, 0.61);
-    width: 100%;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    position: absolute;
-    top: 0;
+.albumImageTitle {
+  background: rgba(0, 0, 0, 0.61);
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: absolute;
+  top: 0;
 }
-.albumPlaycount{
-    background: rgba(0, 0, 0, 0.61);
-    width: 100%;
-    color: white;
-    text-align: left;
-    padding: 7.5px;
-    position: absolute;
-    bottom: 0;
-    margin-left: 5px;
-    margin-bottom: calc(1em + 36px);
+.albumPlaycount {
+  background: rgba(0, 0, 0, 0.61);
+  width: 100%;
+  color: white;
+  text-align: left;
+  padding: 7.5px;
+  position: absolute;
+  bottom: 0;
+  margin-left: 5px;
+  margin-bottom: calc(1em + 36px);
 }
-.albumListenerCount{
-    background: rgba(0, 0, 0, 0.61);
-    width: 100%;
-    color: white;
-    text-align: left;
-    padding: 7.5px;
-    position: absolute;
-    bottom: 0;
-    margin-left: 5px;
+.albumListenerCount {
+  background: rgba(0, 0, 0, 0.61);
+  width: 100%;
+  color: white;
+  text-align: left;
+  padding: 7.5px;
+  position: absolute;
+  bottom: 0;
+  margin-left: 5px;
 }

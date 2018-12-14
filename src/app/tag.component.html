@@ -1,24 +1,62 @@
-<h1>{{title}}</h1>
+<h1>{{ title }}</h1>
 
 <md-grid-list cols="6" gutterSize="5" id="list-albums">
-    <md-grid-tile *ngIf="topAlbum && topAlbum.image" (click)="goToAlbum(topAlbum.name, topAlbum.artist['#text'])"
-        [colspan]="2"
-        [rowspan]="2" [ngStyle]="{'background-image': 'url(' + topAlbum.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
-        <h2 class="albumImageTitle"><b>{{topAlbum['@attr'].rank}}</b> - {{topAlbum.name}}</h2>
-        <h3 class="albumPlaycount">{{topAlbum.playcount}} listeners</h3>
-    </md-grid-tile>
-    <md-grid-tile *ngFor="let album of topNineAlbums; let i = index;" (click)="goToAlbum(album.name, album.artist['#text'])"
-        [colspan]="1"
-        [rowspan]="1"  [ngStyle]="{'background-image': 'url(' + album.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
-        <h2 class="albumImageTitle"><b>{{album['@attr'].rank}}</b> - {{album.name}}</h2>
-        <h3 class="albumPlaycount">{{album.playcount}} listeners</h3>
-    </md-grid-tile>
+  <md-grid-tile
+    *ngIf="topAlbum && topAlbum.image"
+    (click)="goToAlbum(topAlbum.name, topAlbum.artist['#text'])"
+    [colspan]="2"
+    [rowspan]="2"
+    [ngStyle]="{
+      'background-image': 'url(' + topAlbum.image[3]['#text'] + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    }"
+  >
+    <h2 class="albumImageTitle">
+      <b>{{ topAlbum["@attr"].rank }}</b> - {{ topAlbum.name }}
+    </h2>
+    <h3 class="albumPlaycount">{{ topAlbum.playcount }} listeners</h3>
+  </md-grid-tile>
+  <md-grid-tile
+    *ngFor="let album of topNineAlbums; let i = index"
+    (click)="goToAlbum(album.name, album.artist['#text'])"
+    [colspan]="1"
+    [rowspan]="1"
+    [ngStyle]="{
+      'background-image': 'url(' + album.image[3]['#text'] + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    }"
+  >
+    <h2 class="albumImageTitle">
+      <b>{{ album["@attr"].rank }}</b> - {{ album.name }}
+    </h2>
+    <h3 class="albumPlaycount">{{ album.playcount }} listeners</h3>
+  </md-grid-tile>
 </md-grid-list>
-<md-grid-list cols="9" gutterSize="5" *ngIf="restOfAlbums" id="listRestOfAlbums">
-    <md-grid-tile *ngFor="let album of restOfAlbums; let i = index;" (click)="goToAlbum(album.name, album.artist['#text'])"
-        [colspan]="1"
-        [rowspan]="1"  [ngStyle]="{'background-image': 'url(' + album.image[3]['#text'] + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}">
-        <h2 class="restOfAlbumImageTitle"><b>{{album['@attr'].rank}}</b> - {{album.name}}</h2>
-        <h3 class="restOfAlbumPlaycount">{{album.playcount}} listeners</h3>
-    </md-grid-tile>
+<md-grid-list
+  cols="9"
+  gutterSize="5"
+  *ngIf="restOfAlbums"
+  id="listRestOfAlbums"
+>
+  <md-grid-tile
+    *ngFor="let album of restOfAlbums; let i = index"
+    (click)="goToAlbum(album.name, album.artist['#text'])"
+    [colspan]="1"
+    [rowspan]="1"
+    [ngStyle]="{
+      'background-image': 'url(' + album.image[3]['#text'] + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    }"
+  >
+    <h2 class="restOfAlbumImageTitle">
+      <b>{{ album["@attr"].rank }}</b> - {{ album.name }}
+    </h2>
+    <h3 class="restOfAlbumPlaycount">{{ album.playcount }} listeners</h3>
+  </md-grid-tile>
 </md-grid-list>

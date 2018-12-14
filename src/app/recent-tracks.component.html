@@ -1,72 +1,207 @@
-<img *ngIf="detailView" [src]="detailView" id="imgDetail"/>
-<md-card id="select-album" *ngIf="albumsForUpdate" >
-    
-    <div id="radio-group-holder">
-        <md-radio-group [(ngModel)]="selectionType" >
-            <md-radio-button value="select"></md-radio-button>
-            <md-radio-button value="write"></md-radio-button>
-        </md-radio-group>
-    </div>
-    <md-select placeholder="Album" [(ngModel)]="newAlbum" name="album" [disabled]="selectionType != 'select'">
-        <md-option *ngFor="let album of albumsForUpdate" [value]="album" [class.valid-album]="album.valid">
-            {{album.title}}
-        </md-option>
-    </md-select>
-    <input type="text" class="form-control" name="album" [(ngModel)]="newAlbumWritten" id="new-album-written" [disabled]="selectionType != 'write'">
+<img *ngIf="detailView" [src]="detailView" id="imgDetail" />
+<md-card id="select-album" *ngIf="albumsForUpdate">
+  <div id="radio-group-holder">
+    <md-radio-group [(ngModel)]="selectionType">
+      <md-radio-button value="select"></md-radio-button>
+      <md-radio-button value="write"></md-radio-button>
+    </md-radio-group>
+  </div>
+  <md-select
+    placeholder="Album"
+    [(ngModel)]="newAlbum"
+    name="album"
+    [disabled]="selectionType != 'select'"
+  >
+    <md-option
+      *ngFor="let album of albumsForUpdate"
+      [value]="album"
+      [class.valid-album]="album.valid"
+    >
+      {{ album.title }}
+    </md-option>
+  </md-select>
+  <input
+    type="text"
+    class="form-control"
+    name="album"
+    [(ngModel)]="newAlbumWritten"
+    id="new-album-written"
+    [disabled]="selectionType != 'write'"
+  />
 </md-card>
-<button md-fab *ngIf="albumsForUpdate" [disabled]="!(newAlbum && selectionType == 'select' || newAlbumWritten && selectionType == 'write')"  id="btnSave" (click)="scrobbleSelectedTracks()"><md-icon>save</md-icon></button>
+<button
+  md-fab
+  *ngIf="albumsForUpdate"
+  [disabled]="
+    !(
+      (newAlbum && selectionType == 'select') ||
+      (newAlbumWritten && selectionType == 'write')
+    )
+  "
+  id="btnSave"
+  (click)="scrobbleSelectedTracks()"
+>
+  <md-icon>save</md-icon>
+</button>
 <md-grid-list cols="11" rowHeight="65px" id="listRecentTracks" gutterSize="0">
-    <!-- <div *ngFor="let track of recentTracks | artistfilter:selectedTrack; let i = index;" (click)="getAlbumsForSpecificTrack(track)"> -->
-    <div *ngFor="let track of recentTracks; let i = index;" (click)="getAlbumsForSpecificTrack(track)">
-            <md-grid-tile *ngIf="track.date"
-                [colspan]="1"
-                [rowspan]="2" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-                <button md-raised-button (click)="stopPropagation($event); openDialogNewScrobbleBefore(track.date.uts)" class="btn_after">Scrobble After</button>
-            </md-grid-tile>
-            <md-grid-tile *ngIf="track.date"
-            [colspan]="1"
-            [rowspan]="2" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-            <img [src]="track.image[1]['#text']" (mouseover)="imageFocused(track)" (mouseout)="imageUnfocused()" *ngIf="!track.selected"/>
-            <img [src]="newAlbum.image[1]['#text']" (mouseover)="imageFocused(track)" (mouseout)="imageUnfocused()" *ngIf="track.selected && newAlbum && newAlbum.image"/>
-        </md-grid-tile>
-        <md-grid-tile *ngIf="track.date"
-            [colspan]="6"
-            [rowspan]="1" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-            <p *ngIf="!track.selected" (click)="openDialogTrackinfo(track.artist['#text'], track.name, track.album['#text']); stopPropagation($event)" class="table-trackinfo-link">{{track.name}}</p>
-            <md-input-container *ngIf="track.selected" (click)="stopPropagation($event)">
-                <input mdInput placeholder="Track" [(ngModel)]="track.name"/>
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile *ngIf="track.date"
-            [colspan]="3"
-            [rowspan]="1" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-            <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="album/{{track.album['#text']}}/{{track.artist['#text']}}" class="table-link">{{track.album['#text']}}</a>
-            <!-- <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="{{encodeAlbumLinkURIComponent(track.artist['#text'],track.album['#text'])" class="table-link">{{track.album['#text']}}</a> -->
-            <p *ngIf="track.selected && newAlbum">{{newAlbum.name}}</p>
-
-        </md-grid-tile>
-        <md-grid-tile *ngIf="track.date"
-            [colspan]="6"
-            [rowspan]="1" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-            <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="artist/{{track.artist['#text']}}" class="table-link">{{track.artist['#text']}}</a>
-            <md-input-container *ngIf="track.selected" (click)="stopPropagation($event)">
-                <input mdInput placeholder="Artist" [(ngModel)]="track.artist['#text']"/>
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile *ngIf="track.date"
-            [colspan]="3"
-            [rowspan]="1" [class.oddDiv]="isOdd(i)" [class.evenDiv]="!isOdd(i)" [class.selected]="track.selected" [class.warning]="conventionsWarning(track,i)" [class.error]="conventionsError(track,i)">
-            <p *ngIf="track.date" class="table-trackdate">{{track.date['#text'] | date:'medium'}}</p>
-            <p *ngIf="!track.date" class="table-trackdate">now playing</p>
-        </md-grid-tile>
-    </div>
+  <!--
+    <div *ngFor="let track of recentTracks | artistfilter:selectedTrack; let i = index;" (click)="getAlbumsForSpecificTrack(track)">
+  -->
+  <div
+    *ngFor="let track of recentTracks; let i = index"
+    (click)="getAlbumsForSpecificTrack(track)"
+  >
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="1"
+      [rowspan]="2"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <button
+        md-raised-button
+        (click)="
+          stopPropagation($event); openDialogNewScrobbleBefore(track.date.uts)
+        "
+        class="btn_after"
+      >
+        Scrobble After
+      </button>
+    </md-grid-tile>
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="1"
+      [rowspan]="2"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <img
+        [src]="track.image[1]['#text']"
+        (mouseover)="imageFocused(track)"
+        (mouseout)="imageUnfocused()"
+        *ngIf="!track.selected"
+      />
+      <img
+        [src]="newAlbum.image[1]['#text']"
+        (mouseover)="imageFocused(track)"
+        (mouseout)="imageUnfocused()"
+        *ngIf="track.selected && newAlbum && newAlbum.image"
+      />
+    </md-grid-tile>
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="6"
+      [rowspan]="1"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <p
+        *ngIf="!track.selected"
+        (click)="
+          openDialogTrackinfo(
+            track.artist['#text'],
+            track.name,
+            track.album['#text']
+          );
+          stopPropagation($event)
+        "
+        class="table-trackinfo-link"
+      >
+        {{ track.name }}
+      </p>
+      <md-input-container
+        *ngIf="track.selected"
+        (click)="stopPropagation($event)"
+      >
+        <input mdInput placeholder="Track" [(ngModel)]="track.name" />
+      </md-input-container>
+    </md-grid-tile>
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="3"
+      [rowspan]="1"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <a
+        *ngIf="!track.selected"
+        (click)="stopPropagation($event)"
+        href="album/{{track.album['#text']}}/{{track.artist['#text']}}"
+        class="table-link"
+        >{{ track.album["#text"] }}</a
+      >
+      <!--
+        <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="{{encodeAlbumLinkURIComponent(track.artist['#text'],track.album['#text'])" class="table-link">{{track.album['#text']}}</a>
+      -->
+      <p *ngIf="track.selected && newAlbum">{{ newAlbum.name }}</p>
+    </md-grid-tile>
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="6"
+      [rowspan]="1"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <a
+        *ngIf="!track.selected"
+        (click)="stopPropagation($event)"
+        href="artist/{{track.artist['#text']}}"
+        class="table-link"
+        >{{ track.artist["#text"] }}</a
+      >
+      <md-input-container
+        *ngIf="track.selected"
+        (click)="stopPropagation($event)"
+      >
+        <input
+          mdInput
+          placeholder="Artist"
+          [(ngModel)]="track.artist['#text']"
+        />
+      </md-input-container>
+    </md-grid-tile>
+    <md-grid-tile
+      *ngIf="track.date"
+      [colspan]="3"
+      [rowspan]="1"
+      [class.oddDiv]="isOdd(i)"
+      [class.evenDiv]="!isOdd(i)"
+      [class.selected]="track.selected"
+      [class.warning]="conventionsWarning(track, i)"
+      [class.error]="conventionsError(track, i)"
+    >
+      <p *ngIf="track.date" class="table-trackdate">
+        {{ track.date["#text"] | date: "medium" }}
+      </p>
+      <p *ngIf="!track.date" class="table-trackdate">now playing</p>
+    </md-grid-tile>
+  </div>
 </md-grid-list>
 <div id="spinner_holder">
-    <my-spinner [isRunning]="isRequesting"></my-spinner>
+  <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>
-<!-- <canvas id="warning-container">
-</canvas> -->
-<!-- <div class="warning-marker" *ngFor="let warning of warnings" [style.top.px]="getPositionOfWarning(warning)">
-</div>
-<div class="error-marker" *ngFor="let error of errors" [style.top.px]="getPositionOfError(error)">
-</div> -->
+<!--
+  <canvas id="warning-container">
+  </canvas>
+-->
+<!--
+  <div class="warning-marker" *ngFor="let warning of warnings" [style.top.px]="getPositionOfWarning(warning)">
+  </div>
+  <div class="error-marker" *ngFor="let error of errors" [style.top.px]="getPositionOfError(error)">
+  </div>
+-->

@@ -1,19 +1,19 @@
-md-radio-button{
-    display: block;
+md-radio-button {
+  display: block;
 }
-.radio-group-holder{
-    clear: left;
-    float: left;
-    width: 5%;
+.radio-group-holder {
+  clear: left;
+  float: left;
+  width: 5%;
 }
-label{
-    clear: left;
-    float: left;
+label {
+  clear: left;
+  float: left;
 }
-.input-holder{
-    float: left;
-    width: 95%;
+.input-holder {
+  float: left;
+  width: 95%;
 }
-md-select{
-    width: 100%;
+md-select {
+  width: 100%;
 }

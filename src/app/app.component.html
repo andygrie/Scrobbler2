@@ -1,28 +1,89 @@
 <div id="app-header">
   <md-card id="menu-buttons">
     <md-card-content>
-      <button md-raised-button routerLink="/recentTracks" routerLinkActive="active" class="nav-button">Recent Tracks</button>
-      <button md-raised-button routerLink="/artists" routerLinkActive="active" class="nav-button">Artists</button>
-      <button md-raised-button routerLink="/albums" routerLinkActive="active" class="nav-button">Albums</button>
-      <button md-raised-button routerLink="/tracks" routerLinkActive="active" class="nav-button">Tracks</button>
-      <button md-raised-button routerLink="/tags" routerLinkActive="active" class="nav-button">Tags</button>
-      <button md-raised-button routerLink="/friends" routerLinkActive="active" class="nav-button">Friends</button>
-      <button md-raised-button routerLink="/releases" routerLinkActive="active" class="nav-button">Releases</button>
-      <button md-raised-button (click)="openDialogNewScrobble()" class="nav-button">New Scrobble</button>
-      <button md-raised-button (click)="getNewToken()" class="nav-button">New Token</button>
+      <button
+        md-raised-button
+        routerLink="/recentTracks"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Recent Tracks
+      </button>
+      <button
+        md-raised-button
+        routerLink="/artists"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Artists
+      </button>
+      <button
+        md-raised-button
+        routerLink="/albums"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Albums
+      </button>
+      <button
+        md-raised-button
+        routerLink="/tracks"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Tracks
+      </button>
+      <button
+        md-raised-button
+        routerLink="/tags"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Tags
+      </button>
+      <button
+        md-raised-button
+        routerLink="/friends"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Friends
+      </button>
+      <button
+        md-raised-button
+        routerLink="/releases"
+        routerLinkActive="active"
+        class="nav-button"
+      >
+        Releases
+      </button>
+      <button
+        md-raised-button
+        (click)="openDialogNewScrobble()"
+        class="nav-button"
+      >
+        New Scrobble
+      </button>
+      <button md-raised-button (click)="getNewToken()" class="nav-button">
+        New Token
+      </button>
     </md-card-content>
   </md-card>
   <md-card class="now-playing" *ngIf="currentTrack">
     <md-card-content>
-      <span>Now Playing: {{currentTrack.artist['#text']}} - <b>{{currentTrack.name}} </b></span>
+      <span
+        >Now Playing: {{ currentTrack.artist["#text"] }} -
+        <b>{{ currentTrack.name }} </b></span
+      >
     </md-card-content>
   </md-card>
   <md-card class="now-playing" *ngIf="lastTrack">
     <md-card-content>
-      <span>Last Played: {{lastTrack.artist['#text']}} - <b>{{lastTrack.name}} </b></span>
+      <span
+        >Last Played: {{ lastTrack.artist["#text"] }} -
+        <b>{{ lastTrack.name }} </b></span
+      >
     </md-card-content>
   </md-card>
 </div>
-<div id="app-content">
-  <router-outlet></router-outlet>
-</div>
+<div id="app-content"><router-outlet></router-outlet></div>

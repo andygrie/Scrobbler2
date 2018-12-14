@@ -1,20 +1,40 @@
 <div id="title-friends">
-    <h1>{{title}}</h1>
+  <h1>{{ title }}</h1>
 </div>
 <div id="spinner_holder">
-    <my-spinner [isRunning]="isRequesting"></my-spinner>
+  <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>
 <md-grid-list cols="6" gutterSize="5" *ngIf="artistsLoaded()" id="list-artists">
-    <md-grid-tile *ngIf="topArtist"
-        [colspan]="2"
-        [rowspan]="2" [ngStyle]="{'background-image': 'url(' + topArtist.imageURL + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}" (click)="openDialog(topArtist)">
-        <h2 class="artistImageTitle"><b>1</b> - {{topArtist.artist}}</h2>
-        <h3 class="artistPlaycount">{{topArtist.playcount}} scrobbles</h3>
-    </md-grid-tile>
-    <md-grid-tile *ngFor="let artist of topArtists; let i = index;"
-        [colspan]="1"
-        [rowspan]="1" [ngStyle]="{'background-image': 'url(' + artist.imageURL + ')', 'background-size': 'cover', 'background-repeat': 'no-repeat', 'background-position': 'center center'}" (click)="openDialog(artist)">
-        <h2 class="artistImageTitle"><b>{{i + 2}}</b> - {{artist.artist}}</h2>
-        <h3 class="artistPlaycount">{{artist.playcount}} scrobbles</h3>
-    </md-grid-tile>
+  <md-grid-tile
+    *ngIf="topArtist"
+    [colspan]="2"
+    [rowspan]="2"
+    [ngStyle]="{
+      'background-image': 'url(' + topArtist.imageURL + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    }"
+    (click)="openDialog(topArtist)"
+  >
+    <h2 class="artistImageTitle"><b>1</b> - {{ topArtist.artist }}</h2>
+    <h3 class="artistPlaycount">{{ topArtist.playcount }} scrobbles</h3>
+  </md-grid-tile>
+  <md-grid-tile
+    *ngFor="let artist of topArtists; let i = index"
+    [colspan]="1"
+    [rowspan]="1"
+    [ngStyle]="{
+      'background-image': 'url(' + artist.imageURL + ')',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat',
+      'background-position': 'center center'
+    }"
+    (click)="openDialog(artist)"
+  >
+    <h2 class="artistImageTitle">
+      <b>{{ i + 2 }}</b> - {{ artist.artist }}
+    </h2>
+    <h3 class="artistPlaycount">{{ artist.playcount }} scrobbles</h3>
+  </md-grid-tile>
 </md-grid-list>

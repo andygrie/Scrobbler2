@@ -1,48 +1,50 @@
-#chart-album{
-    width: 100%;
-    float: left;
-    opacity: 0.9;
-    margin-bottom: 10px;
+#chart-album {
+  width: 100%;
+  float: left;
+  opacity: 0.9;
+  margin-bottom: 10px;
 }
-md-list-item, md-list-item .md-list-item-inner, md-checkbox {
-    min-height: 100%;
+md-list-item,
+md-list-item .md-list-item-inner,
+md-checkbox {
+  min-height: 100%;
 }
 md-list-item {
-    min-height: 100%;
-    height: 2em;
+  min-height: 100%;
+  height: 2em;
 }
-md-card{
-    opacity: 0.9;
+md-card {
+  opacity: 0.9;
 }
-#list-tracks{
-    width : calc(50% - 5px);
-    float: right;
+#list-tracks {
+  width: calc(50% - 5px);
+  float: right;
 }
-#list-tags{
-    width : calc(50% - 5px);
-    float: left;
+#list-tags {
+  width: calc(50% - 5px);
+  float: left;
 }
-#album-info{
-    margin-bottom: 10px;
+#album-info {
+  margin-bottom: 10px;
 }
-#tags-tracks{
-    width: 100%;
-    overflow: auto;
-    margin-bottom: 10px;
+#tags-tracks {
+  width: 100%;
+  overflow: auto;
+  margin-bottom: 10px;
 }
-#album-background{
-    width : 100%;
-    z-index: -2;
+#album-background {
+  width: 100%;
+  z-index: -2;
 }
-.blurred{
-    position: fixed;
-    top: 150px;
-    left: 0;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
+.blurred {
+  position: fixed;
+  top: 150px;
+  left: 0;
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
 }
-.not-blurred{
-    position: absolute;
-    top: 150px;
-    left: 0;
+.not-blurred {
+  position: absolute;
+  top: 150px;
+  left: 0;
 }

@@ -1,19 +1,69 @@
 <div id="filter-buttons">
-  <h1>{{title}}</h1>
-  <button md-raised-button (click)="changeTimeRange('overall')" [disabled]="timeButtonsDisabled">All</button>
-  <button md-raised-button (click)="changeTimeRange('12month')" [disabled]="timeButtonsDisabled">1 Year</button>
-  <button md-raised-button (click)="changeTimeRange('6month')" [disabled]="timeButtonsDisabled">6 Months</button>
-  <button md-raised-button (click)="changeTimeRange('3month')" [disabled]="timeButtonsDisabled">3 Months</button>
-  <button md-raised-button (click)="changeTimeRange('1month')" [disabled]="timeButtonsDisabled">1 Month</button>
-  <button md-raised-button (click)="changeTimeRange('7day')" [disabled]="timeButtonsDisabled">7 Days</button>
+  <h1>{{ title }}</h1>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('overall')"
+    [disabled]="timeButtonsDisabled"
+  >
+    All
+  </button>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('12month')"
+    [disabled]="timeButtonsDisabled"
+  >
+    1 Year
+  </button>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('6month')"
+    [disabled]="timeButtonsDisabled"
+  >
+    6 Months
+  </button>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('3month')"
+    [disabled]="timeButtonsDisabled"
+  >
+    3 Months
+  </button>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('1month')"
+    [disabled]="timeButtonsDisabled"
+  >
+    1 Month
+  </button>
+  <button
+    md-raised-button
+    (click)="changeTimeRange('7day')"
+    [disabled]="timeButtonsDisabled"
+  >
+    7 Days
+  </button>
 </div>
-<img *ngIf="detailView" [src]="detailView" id="imgDetail"/>
+<img *ngIf="detailView" [src]="detailView" id="imgDetail" />
 <md-list id="list-tracks">
-  <md-list-item *ngFor="let track of topTracks" class="list-entry-track"  [style.width]="getWidthPercentage(track) + '%'" >
-    <img md-list-avatar [src]="track.image[1]['#text']" (mouseover)="imageFocused(track)" (mouseout)="imageUnfocused()"/>
-    <h3 md-line>{{track.artist.name}} - <b>{{track.name}}</b></h3> <span class="track-playcount"><b>{{track.playcount}}</b></span>
+  <md-list-item
+    *ngFor="let track of topTracks"
+    class="list-entry-track"
+    [style.width]="getWidthPercentage(track) + '%'"
+  >
+    <img
+      md-list-avatar
+      [src]="track.image[1]['#text']"
+      (mouseover)="imageFocused(track)"
+      (mouseout)="imageUnfocused()"
+    />
+    <h3 md-line>
+      {{ track.artist.name }} - <b>{{ track.name }}</b>
+    </h3>
+    <span class="track-playcount"
+      ><b>{{ track.playcount }}</b></span
+    >
   </md-list-item>
 </md-list>
 <div id="spinner_holder">
-    <my-spinner [isRunning]="isRequesting"></my-spinner>
+  <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>
