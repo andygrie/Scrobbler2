@@ -21,7 +21,7 @@
         'background-repeat': 'no-repeat',
         'background-position': 'center center'
       }"
-      (click)="openDialog(artist)"
+      (click)="goToAlbum(album.name, title)"
     >
       <h2 class="albumImageTitle">
         <b>{{ i + 1 }}</b> - {{ album.name }}

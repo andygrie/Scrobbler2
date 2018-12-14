@@ -1,5 +1,6 @@
 import { MatDialogRef } from "@angular/material";
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { UserService } from "../../services/user/user.service";
 
 @Component({
@@ -12,7 +13,6 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
     for (let friend of this.friends) {
       this.addAlbumStatistics(friend, 1);
     }
-    console.log(this.friends.length);
   }
 
   public title: string;
@@ -24,6 +24,7 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
   tooltipPosition: string = "before";
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogAlbumsOfArtist>,
+    private router: Router,
     private userService: UserService
   ) {}
 
@@ -34,7 +35,6 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
     this.userService
       .getArtistTracks(page, this.title, this.startDate, this.endDate, friend)
       .then(data => {
-        console.log(data);
         for (let track of data) {
           if (track.album["#text"] != "") {
             let existingAlbum = this.albums.find(
@@ -91,6 +91,10 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
   }
   getListenersOfAlbum(index: number): number {
     return this.albums[index].listeners.length;
+  }
+  goToAlbum(album: string, artist: string) {
+    this.dialogRef.close(false);
+    this.router.navigate(["/album", album, artist]);
   }
   showErrorMessage(error: any): void {
     alert(error.status + " " + error.statusText + " " + error["_body"]);
