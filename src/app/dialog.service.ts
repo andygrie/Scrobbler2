@@ -1,13 +1,13 @@
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 import { ConfirmDialogAlbumsOfArtist } from "./albums-of-artist.dialog.component";
 import { ConfirmDialogTrackInfo } from "./trackinfo.dialog.component";
 import { ConfirmDialogNewScrobble } from "./new-scrobble.dialog.component";
-import { MdDialogRef, MdDialog, MdDialogConfig } from "@angular/material";
+import { MatDialogRef, MatDialog } from "@angular/material";
 import { Injectable } from "@angular/core";
 
 @Injectable()
 export class DialogService {
-  constructor(private dialog: MdDialog) {}
+  constructor(private dialog: MatDialog) {}
 
   public confirmAlbumsOfArtistDialog(
     title: string,
@@ -15,7 +15,7 @@ export class DialogService {
     startDate: number,
     endDate: number
   ): Observable<boolean> {
-    let dialogRef: MdDialogRef<ConfirmDialogAlbumsOfArtist>;
+    let dialogRef: MatDialogRef<ConfirmDialogAlbumsOfArtist>;
     dialogRef = this.dialog.open(ConfirmDialogAlbumsOfArtist, {
       width: "75%",
       height: "75%"
@@ -31,7 +31,7 @@ export class DialogService {
     artist: string,
     album: string
   ): Observable<boolean> {
-    let dialogRef: MdDialogRef<ConfirmDialogTrackInfo>;
+    let dialogRef: MatDialogRef<ConfirmDialogTrackInfo>;
     dialogRef = this.dialog.open(ConfirmDialogTrackInfo, {
       width: "75%",
       height: "75%"
@@ -42,7 +42,7 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
   public confirmNewScrobbleDialog(): Observable<boolean> {
-    let dialogRef: MdDialogRef<ConfirmDialogNewScrobble>;
+    let dialogRef: MatDialogRef<ConfirmDialogNewScrobble>;
     dialogRef = this.dialog.open(ConfirmDialogNewScrobble, {
       width: "75%",
       height: "75%"
@@ -50,7 +50,7 @@ export class DialogService {
     return dialogRef.afterClosed();
   }
   public confirmNewScrobbleDialogWithDateAfter(date: number): Observable<any> {
-    let dialogRef: MdDialogRef<ConfirmDialogNewScrobble>;
+    let dialogRef: MatDialogRef<ConfirmDialogNewScrobble>;
     dialogRef = this.dialog.open(ConfirmDialogNewScrobble, {
       width: "75%",
       height: "75%"

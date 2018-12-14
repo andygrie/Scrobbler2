@@ -20,10 +20,10 @@
 <div class="form-group">
   <label for="album">Album</label>
   <div class="radio-group-holder">
-    <md-radio-group [(ngModel)]="selectionType">
-      <md-radio-button value="write"></md-radio-button>
-      <md-radio-button value="select"></md-radio-button>
-    </md-radio-group>
+    <mat-radio-group [(ngModel)]="selectionType">
+      <mat-radio-button value="write"></mat-radio-button>
+      <mat-radio-button value="select"></mat-radio-button>
+    </mat-radio-group>
   </div>
   <div class="input-holder">
     <input
@@ -33,33 +33,39 @@
       [(ngModel)]="album"
       [disabled]="selectionType != 'write'"
     />
-    <md-select
+    <mat-select
       placeholder="Album"
       [(ngModel)]="albumSelect"
       name="album"
       [disabled]="selectionType != 'select'"
       (change)="onSelectedAlbumChange()"
     >
-      <md-option
+      <mat-option
         *ngFor="let album of albumsForUpdate"
         [value]="album"
         [class.valid-album]="album.valid"
       >
         {{ album.title }}
-      </md-option>
-    </md-select>
-    <md-checkbox [(ngModel)]="wholeAlbum" aria-label="Scrobble whole album?">
+      </mat-option>
+    </mat-select>
+    <mat-checkbox [(ngModel)]="wholeAlbum" aria-label="Scrobble whole album?">
       Scrobble whole album?
-    </md-checkbox>
+    </mat-checkbox>
   </div>
 </div>
 <div class="form-group">
   <label for="track">Track</label>
   <div class="radio-group-holder">
-    <md-radio-group [(ngModel)]="selectionTypeTrack">
-      <md-radio-button value="write" [disabled]="wholeAlbum"></md-radio-button>
-      <md-radio-button value="select" [disabled]="wholeAlbum"></md-radio-button>
-    </md-radio-group>
+    <mat-radio-group [(ngModel)]="selectionTypeTrack">
+      <mat-radio-button
+        value="write"
+        [disabled]="wholeAlbum"
+      ></mat-radio-button>
+      <mat-radio-button
+        value="select"
+        [disabled]="wholeAlbum"
+      ></mat-radio-button>
+    </mat-radio-group>
   </div>
   <div class="input-holder">
     <input
@@ -69,21 +75,21 @@
       [(ngModel)]="track"
       [disabled]="selectionTypeTrack != 'write'"
     />
-    <md-select
+    <mat-select
       placeholder="Track"
       [(ngModel)]="trackSelect"
       name="track"
       [disabled]="selectionTypeTrack != 'select'"
       (change)="onSelectTrackChange()"
     >
-      <md-option
+      <mat-option
         *ngFor="let track of tracksForUpdate"
         [value]="track"
         [class.valid-album]="track.valid"
       >
         {{ track.title }}
-      </md-option>
-    </md-select>
+      </mat-option>
+    </mat-select>
   </div>
 </div>
 <div class="form-group">

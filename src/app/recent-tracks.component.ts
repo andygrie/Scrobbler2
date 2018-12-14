@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { Router } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 
 import { UserService } from "./user.service";
 import { ArtistService } from "./artist.service";
@@ -8,7 +8,7 @@ import { TrackService } from "./track.service";
 import { AlbumService } from "./album.service";
 import { DialogService } from "./dialog.service";
 import { escape, unescape, parse } from "querystring";
-import { Observable } from "rxjs/Rx";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "artists",

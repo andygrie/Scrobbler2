@@ -1,27 +1,27 @@
-<md-card id="artist-info" *ngIf="artistInfo" [@isVisibleChanged]="imageStatus">
-  <md-card-header>
+<mat-card id="artist-info" *ngIf="artistInfo" [@isVisibleChanged]="imageStatus">
+  <mat-card-header>
     <h1>{{ artistName }}</h1>
-  </md-card-header>
-  <md-card-content>
+  </mat-card-header>
+  <mat-card-content>
     <div *ngIf="artistInfo.bio" [innerHTML]="artistInfo.bio.summary"></div>
-    <md-list>
-      <h2 md-header>Stats</h2>
-      <md-list-item> Listeners: {{ artistInfo.stats.listeners }} </md-list-item>
-      <md-list-item>
+    <mat-list>
+      <h2 mat-header>Stats</h2>
+      <mat-list-item> Listeners: {{ artistInfo.stats.listeners }} </mat-list-item>
+      <mat-list-item>
         Total Playcount: {{ artistInfo.stats.playcount }}
-      </md-list-item>
-      <md-list-item>
+      </mat-list-item>
+      <mat-list-item>
         User Playcount: {{ artistInfo.stats.userplaycount }}
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
 <div id="left-side" [@isVisibleChanged]="imageStatus">
-  <md-card id="list-user-albums" *ngIf="userAlbumStatistics">
-    <md-card-header> <h2>User Albums</h2> </md-card-header>
-    <md-card-content>
-      <md-grid-list cols="4" gutterSize="0">
-        <md-grid-tile
+  <mat-card id="list-user-albums" *ngIf="userAlbumStatistics">
+    <mat-card-header> <h2>User Albums</h2> </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="4" gutterSize="0">
+        <mat-grid-tile
           *ngFor="let album of userAlbumStatistics"
           (click)="goToAlbum(album.name)"
           [colspan]="1"
@@ -35,25 +35,25 @@
         >
           <h2 class="album-imagetitle">{{ album.name }}</h2>
           <h3 class="album-playcount">{{ album.playcount }} scrobbles</h3>
-        </md-grid-tile>
-      </md-grid-list>
-    </md-card-content>
-  </md-card>
-  <md-card id="list-tags" *ngIf="artistInfo" (click)="move()">
-    <md-card-header> <h2>Tags</h2> </md-card-header>
-    <md-card-content>
-      <md-list>
-        <md-list-item *ngFor="let tag of artistInfo.tags.tag">{{
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card id="list-tags" *ngIf="artistInfo" (click)="move()">
+    <mat-card-header> <h2>Tags</h2> </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let tag of artistInfo.tags.tag">{{
           tag.name
-        }}</md-list-item>
-      </md-list>
-    </md-card-content>
-  </md-card>
-  <md-card id="list-similar" *ngIf="artistInfo">
-    <md-card-header> <h2>Similar Artists</h2> </md-card-header>
-    <md-card-content>
-      <md-grid-list cols="5" gutterSize="0">
-        <md-grid-tile
+        }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card id="list-similar" *ngIf="artistInfo">
+    <mat-card-header> <h2>Similar Artists</h2> </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="5" gutterSize="0">
+        <mat-grid-tile
           *ngFor="let artist of artistInfo.similar.artist; let i = index"
           (click)="goToArtist(artist.name)"
           [colspan]="1"
@@ -66,17 +66,17 @@
           }"
         >
           <h2 class="similar-artist-imagetitle">{{ artist.name }}</h2>
-        </md-grid-tile>
-      </md-grid-list>
-    </md-card-content>
-  </md-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
 </div>
 <div *ngIf="artistInfo" id="right-side" [@isVisibleChanged]="imageStatus">
-  <md-card id="list-global-albums" *ngIf="globalAlbumStatistics">
-    <md-card-header> <h2>Top Albums</h2> </md-card-header>
-    <md-card-content>
-      <md-grid-list cols="4" gutterSize="0">
-        <md-grid-tile
+  <mat-card id="list-global-albums" *ngIf="globalAlbumStatistics">
+    <mat-card-header> <h2>Top Albums</h2> </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="4" gutterSize="0">
+        <mat-grid-tile
           *ngFor="let album of globalAlbumStatistics"
           (click)="goToAlbum(album.name)"
           [colspan]="1"
@@ -90,10 +90,10 @@
         >
           <h2 class="album-imagetitle">{{ album.name }}</h2>
           <h3 class="album-playcount">{{ album.playcount }} scrobbles</h3>
-        </md-grid-tile>
-      </md-grid-list>
-    </md-card-content>
-  </md-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
 </div>
 <img
   *ngIf="artistInfo"

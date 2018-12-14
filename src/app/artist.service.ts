@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, URLSearchParams, Headers } from "@angular/http";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 import { Md5 } from "ts-md5/dist/md5";
-import "rxjs/add/operator/toPromise";
 
 @Injectable()
 export class ArtistService {

@@ -1,7 +1,7 @@
 <h1>{{ title }}</h1>
 
-<md-grid-list cols="6" gutterSize="5" id="list-albums">
-  <md-grid-tile
+<mat-grid-list cols="6" gutterSize="5" id="list-albums">
+  <mat-grid-tile
     *ngIf="topAlbum && topAlbum.image"
     (click)="goToAlbum(topAlbum.name, topAlbum.artist['#text'])"
     [colspan]="2"
@@ -17,8 +17,8 @@
       <b>{{ topAlbum["@attr"].rank }}</b> - {{ topAlbum.name }}
     </h2>
     <h3 class="albumPlaycount">{{ topAlbum.playcount }} listeners</h3>
-  </md-grid-tile>
-  <md-grid-tile
+  </mat-grid-tile>
+  <mat-grid-tile
     *ngFor="let album of topNineAlbums; let i = index"
     (click)="goToAlbum(album.name, album.artist['#text'])"
     [colspan]="1"
@@ -34,15 +34,15 @@
       <b>{{ album["@attr"].rank }}</b> - {{ album.name }}
     </h2>
     <h3 class="albumPlaycount">{{ album.playcount }} listeners</h3>
-  </md-grid-tile>
-</md-grid-list>
-<md-grid-list
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list
   cols="9"
   gutterSize="5"
   *ngIf="restOfAlbums"
   id="listRestOfAlbums"
 >
-  <md-grid-tile
+  <mat-grid-tile
     *ngFor="let album of restOfAlbums; let i = index"
     (click)="goToAlbum(album.name, album.artist['#text'])"
     [colspan]="1"
@@ -58,5 +58,5 @@
       <b>{{ album["@attr"].rank }}</b> - {{ album.name }}
     </h2>
     <h3 class="restOfAlbumPlaycount">{{ album.playcount }} listeners</h3>
-  </md-grid-tile>
-</md-grid-list>
+  </mat-grid-tile>
+</mat-grid-list>

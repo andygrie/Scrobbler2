@@ -1,4 +1,4 @@
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material";
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "./user.service";
 
@@ -23,7 +23,7 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
   friendsDone: number = 0;
   tooltipPosition: string = "before";
   constructor(
-    public dialogRef: MdDialogRef<ConfirmDialogAlbumsOfArtist>,
+    public dialogRef: MatDialogRef<ConfirmDialogAlbumsOfArtist>,
     private userService: UserService
   ) {}
 

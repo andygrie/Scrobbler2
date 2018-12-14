@@ -6,9 +6,8 @@ import {
   Headers,
   RequestOptionsArgs
 } from "@angular/http";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 import { Md5 } from "ts-md5/dist/md5";
-import "rxjs/add/operator/toPromise";
 
 declare function unescape(s: string): string;
 declare function escape(s: string): string;

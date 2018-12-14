@@ -3,15 +3,15 @@
   <button
     type="button"
     id="btn-go-to-artist"
-    md-raised-button
+    mat-raised-button
     (click)="dialogRef.close(true)"
   >
     Go To Artist
   </button>
 </div>
 <div id="content">
-  <md-grid-list cols="4" gutterSize="5" *ngIf="albums">
-    <md-grid-tile
+  <mat-grid-list cols="4" gutterSize="5" *ngIf="albums">
+    <mat-grid-tile
       *ngFor="let album of albums; let i = index"
       [colspan]="1"
       [rowspan]="1"
@@ -28,6 +28,6 @@
       </h2>
       <h3 class="albumPlaycount">{{ album.playcount }} Scrobbles</h3>
       <h4 class="albumListenerCount">{{ getListenersOfAlbum(i) }} Listeners</h4>
-    </md-grid-tile>
-  </md-grid-list>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

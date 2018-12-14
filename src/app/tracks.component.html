@@ -1,42 +1,42 @@
 <div id="filter-buttons">
   <h1>{{ title }}</h1>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('overall')"
     [disabled]="timeButtonsDisabled"
   >
     All
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('12month')"
     [disabled]="timeButtonsDisabled"
   >
     1 Year
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('6month')"
     [disabled]="timeButtonsDisabled"
   >
     6 Months
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('3month')"
     [disabled]="timeButtonsDisabled"
   >
     3 Months
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('1month')"
     [disabled]="timeButtonsDisabled"
   >
     1 Month
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange('7day')"
     [disabled]="timeButtonsDisabled"
   >
@@ -44,26 +44,26 @@
   </button>
 </div>
 <img *ngIf="detailView" [src]="detailView" id="imgDetail" />
-<md-list id="list-tracks">
-  <md-list-item
+<mat-list id="list-tracks">
+  <mat-list-item
     *ngFor="let track of topTracks"
     class="list-entry-track"
     [style.width]="getWidthPercentage(track) + '%'"
   >
     <img
-      md-list-avatar
+      mat-list-avatar
       [src]="track.image[1]['#text']"
       (mouseover)="imageFocused(track)"
       (mouseout)="imageUnfocused()"
     />
-    <h3 md-line>
+    <h3 mat-line>
       {{ track.artist.name }} - <b>{{ track.name }}</b>
     </h3>
     <span class="track-playcount"
       ><b>{{ track.playcount }}</b></span
     >
-  </md-list-item>
-</md-list>
+  </mat-list-item>
+</mat-list>
 <div id="spinner_holder">
   <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>

@@ -1,25 +1,25 @@
 <img *ngIf="detailView" [src]="detailView" id="imgDetail" />
-<md-card id="select-album" *ngIf="albumsForUpdate">
+<mat-card id="select-album" *ngIf="albumsForUpdate">
   <div id="radio-group-holder">
-    <md-radio-group [(ngModel)]="selectionType">
-      <md-radio-button value="select"></md-radio-button>
-      <md-radio-button value="write"></md-radio-button>
-    </md-radio-group>
+    <mat-radio-group [(ngModel)]="selectionType">
+      <mat-radio-button value="select"></mat-radio-button>
+      <mat-radio-button value="write"></mat-radio-button>
+    </mat-radio-group>
   </div>
-  <md-select
+  <mat-select
     placeholder="Album"
     [(ngModel)]="newAlbum"
     name="album"
     [disabled]="selectionType != 'select'"
   >
-    <md-option
+    <mat-option
       *ngFor="let album of albumsForUpdate"
       [value]="album"
       [class.valid-album]="album.valid"
     >
       {{ album.title }}
-    </md-option>
-  </md-select>
+    </mat-option>
+  </mat-select>
   <input
     type="text"
     class="form-control"
@@ -28,9 +28,9 @@
     id="new-album-written"
     [disabled]="selectionType != 'write'"
   />
-</md-card>
+</mat-card>
 <button
-  md-fab
+  mat-fab
   *ngIf="albumsForUpdate"
   [disabled]="
     !(
@@ -41,9 +41,9 @@
   id="btnSave"
   (click)="scrobbleSelectedTracks()"
 >
-  <md-icon>save</md-icon>
+  <mat-icon>save</mat-icon>
 </button>
-<md-grid-list cols="11" rowHeight="65px" id="listRecentTracks" gutterSize="0">
+<mat-grid-list cols="11" rowHeight="65px" id="listRecentTracks" gutterSize="0">
   <!--
     <div *ngFor="let track of recentTracks | artistfilter:selectedTrack; let i = index;" (click)="getAlbumsForSpecificTrack(track)">
   -->
@@ -51,7 +51,7 @@
     *ngFor="let track of recentTracks; let i = index"
     (click)="getAlbumsForSpecificTrack(track)"
   >
-    <md-grid-tile
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="1"
       [rowspan]="2"
@@ -62,7 +62,7 @@
       [class.error]="conventionsError(track, i)"
     >
       <button
-        md-raised-button
+        mat-raised-button
         (click)="
           stopPropagation($event); openDialogNewScrobbleBefore(track.date.uts)
         "
@@ -70,8 +70,8 @@
       >
         Scrobble After
       </button>
-    </md-grid-tile>
-    <md-grid-tile
+    </mat-grid-tile>
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="1"
       [rowspan]="2"
@@ -93,8 +93,8 @@
         (mouseout)="imageUnfocused()"
         *ngIf="track.selected && newAlbum && newAlbum.image"
       />
-    </md-grid-tile>
-    <md-grid-tile
+    </mat-grid-tile>
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="6"
       [rowspan]="1"
@@ -118,14 +118,11 @@
       >
         {{ track.name }}
       </p>
-      <md-input-container
-        *ngIf="track.selected"
-        (click)="stopPropagation($event)"
-      >
-        <input mdInput placeholder="Track" [(ngModel)]="track.name" />
-      </md-input-container>
-    </md-grid-tile>
-    <md-grid-tile
+      <mat-form-field *ngIf="track.selected" (click)="stopPropagation($event)">
+        <input matInput placeholder="Track" [(ngModel)]="track.name" />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="3"
       [rowspan]="1"
@@ -146,8 +143,8 @@
         <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="{{encodeAlbumLinkURIComponent(track.artist['#text'],track.album['#text'])" class="table-link">{{track.album['#text']}}</a>
       -->
       <p *ngIf="track.selected && newAlbum">{{ newAlbum.name }}</p>
-    </md-grid-tile>
-    <md-grid-tile
+    </mat-grid-tile>
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="6"
       [rowspan]="1"
@@ -164,18 +161,15 @@
         class="table-link"
         >{{ track.artist["#text"] }}</a
       >
-      <md-input-container
-        *ngIf="track.selected"
-        (click)="stopPropagation($event)"
-      >
+      <mat-form-field *ngIf="track.selected" (click)="stopPropagation($event)">
         <input
-          mdInput
+          matInput
           placeholder="Artist"
           [(ngModel)]="track.artist['#text']"
         />
-      </md-input-container>
-    </md-grid-tile>
-    <md-grid-tile
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile
       *ngIf="track.date"
       [colspan]="3"
       [rowspan]="1"
@@ -189,9 +183,9 @@
         {{ track.date["#text"] | date: "medium" }}
       </p>
       <p *ngIf="!track.date" class="table-trackdate">now playing</p>
-    </md-grid-tile>
+    </mat-grid-tile>
   </div>
-</md-grid-list>
+</mat-grid-list>
 <div id="spinner_holder">
   <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>

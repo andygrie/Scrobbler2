@@ -1,15 +1,13 @@
+import { Component, OnInit, OnChanges } from "@angular/core";
 import {
-  Component,
-  OnInit,
-  OnChanges,
   trigger,
   state,
   animate,
   transition,
   style
-} from "@angular/core";
+} from "@angular/animations";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 
 import { UserService } from "./user.service";
 import { ArtistService } from "./artist.service";

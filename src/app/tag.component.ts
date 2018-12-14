@@ -4,7 +4,7 @@ import { ArtistService } from "./artist.service";
 import { TagService } from "./tag.service";
 import { AlbumService } from "./album.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 
 @Component({
   selector: "tracks",

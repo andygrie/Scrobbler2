@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from "@angular/core";
 import { Router } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 import { IMyOptions, IMyDateRangeModel } from "mydaterangepicker";
 
 import { UserService } from "./user.service";

@@ -1,43 +1,45 @@
-<md-card *ngIf="albumInfo" id="album-info" [@isVisibleChanged]="imageStatus">
-  <md-card-header>
+<mat-card *ngIf="albumInfo" id="album-info" [@isVisibleChanged]="imageStatus">
+  <mat-card-header>
     <h1>{{ artistName }} - {{ albumName }}</h1>
-  </md-card-header>
-  <md-card-content>
+  </mat-card-header>
+  <mat-card-content>
     <h3 *ngIf="correctRelease">Released On: {{ correctRelease.date }}</h3>
     <div *ngIf="albumInfo.wiki" [innerHTML]="albumInfo.wiki.summary"></div>
-    <md-list>
-      <h2 md-header>Stats</h2>
-      <md-list-item> Listeners: {{ albumInfo.listeners }} </md-list-item>
-      <md-list-item> Total Playcount: {{ albumInfo.playcount }} </md-list-item>
-      <md-list-item>
+    <mat-list>
+      <h2 mat-header>Stats</h2>
+      <mat-list-item> Listeners: {{ albumInfo.listeners }} </mat-list-item>
+      <mat-list-item>
+        Total Playcount: {{ albumInfo.playcount }}
+      </mat-list-item>
+      <mat-list-item>
         User Playcount: {{ albumInfo.userplaycount }}
-      </md-list-item>
-    </md-list>
-  </md-card-content>
-</md-card>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
 <div *ngIf="albumInfo" id="tags-tracks" [@isVisibleChanged]="imageStatus">
-  <md-card id="list-tags">
-    <md-card-header> <h2>Tags</h2> </md-card-header>
-    <md-card-content>
-      <md-list>
-        <md-list-item *ngFor="let tag of albumInfo.tags.tag">{{
+  <mat-card id="list-tags">
+    <mat-card-header> <h2>Tags</h2> </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let tag of albumInfo.tags.tag">{{
           tag.name
-        }}</md-list-item>
-      </md-list>
-    </md-card-content>
-  </md-card>
-  <md-card id="list-tracks">
-    <md-card-header> <h2>Tracklist</h2> </md-card-header>
-    <md-card-content *ngIf="correctRelease">
-      <md-list *ngFor="let media of correctRelease.media">
+        }}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  <mat-card id="list-tracks">
+    <mat-card-header> <h2>Tracklist</h2> </mat-card-header>
+    <mat-card-content *ngIf="correctRelease">
+      <mat-list *ngFor="let media of correctRelease.media">
         <h3>{{ media.position }} - {{ media.format }}</h3>
-        <md-list-item *ngFor="let track of media.tracks"
+        <mat-list-item *ngFor="let track of media.tracks"
           >{{ track.number }}. {{ track.title }}
-          {{ getStringDuration(track.length / 1000) }}</md-list-item
+          {{ getStringDuration(track.length / 1000) }}</mat-list-item
         >
-      </md-list>
-    </md-card-content>
-  </md-card>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
 </div>
 <img
   *ngIf="albumInfo"

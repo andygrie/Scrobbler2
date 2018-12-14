@@ -1,7 +1,7 @@
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material";
 import { Component, OnInit } from "@angular/core";
 import { TrackService } from "./track.service";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 
 @Component({
   selector: "trackinfo-dialog",
@@ -18,7 +18,7 @@ export class ConfirmDialogTrackInfo implements OnInit {
   public album: string;
   private albumimageSource: string;
   constructor(
-    public dialogRef: MdDialogRef<ConfirmDialogTrackInfo>,
+    public dialogRef: MatDialogRef<ConfirmDialogTrackInfo>,
     private trackService: TrackService,
     private localStorageService: LocalStorageService
   ) {}

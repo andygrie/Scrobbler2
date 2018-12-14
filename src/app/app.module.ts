@@ -1,13 +1,13 @@
 import { BrowserModule } from "@angular/platform-browser";
+import { MaterialModule } from "./modules/material/material.module";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MaterialModule } from "@angular/material";
 import "hammerjs";
-import { LocalStorageModule } from "angular-2-local-storage";
 import { ChartModule } from "angular2-highcharts";
 import { HighchartsStatic } from "angular2-highcharts/dist/HighchartsService";
+import { StorageServiceModule } from "angular-webstorage-service";
 export function highchartsFactory() {
   return require("highcharts/highstock");
 }
@@ -20,6 +20,7 @@ import { TrackService } from "./track.service";
 import { AlbumService } from "./album.service";
 import { DialogService } from "./dialog.service";
 import { TagService } from "./tag.service";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -67,14 +68,11 @@ declare var require: any;
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     AppRoutingModule,
-    LocalStorageModule.withConfig({
-      prefix: "scrobbler2",
-      storageType: "localStorage"
-    }),
     ChartModule,
-    MyDateRangePickerModule
+    MyDateRangePickerModule,
+    StorageServiceModule
   ],
   providers: [
     AuthenticationService,
@@ -83,6 +81,7 @@ declare var require: any;
     TrackService,
     AlbumService,
     TagService,
+    LocalStorageService,
     DialogService,
     {
       provide: HighchartsStatic,

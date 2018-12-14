@@ -1,8 +1,8 @@
+import { timer as observableTimer, Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from "./authentication.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 import { DialogService } from "./dialog.service";
 
 import { UserService } from "./user.service";
@@ -24,10 +24,12 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.localStorageService.set("APIURL", "http://ws.audioscrobbler.com/2.0");
     this.route.queryParams.subscribe((params: Params) => {
-      //If token is set (=if you are redirected from last.fm) set session key for other request
-      if (params["token"] != null) {
+      //If token is set (=if you are redirected from last.fm) set session key for other requests
+      console.log(params);
+      if (params["token"]) {
         this.localStorageService.set("token", params["token"]);
         this.authenticationService.getSession().subscribe(data => {
+          console.log(data);
           this.localStorageService.set("sk", data.session.key);
           this.localStorageService.set("name", data.session.name);
           this.router.navigate([""]);
@@ -45,7 +47,7 @@ export class AppComponent implements OnInit {
     window.location.href =
       "http://www.last.fm/api/auth?api_key=" +
       this.localStorageService.get("api_key") +
-      "&cb=http://localhost:4201";
+      "&cb=http://localhost:4201/home";
   }
   openDialogNewScrobble(): void {
     this.dialogService.confirmNewScrobbleDialog().subscribe(res => {
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
     });
   }
   startPolling() {
-    let timeout = Observable.timer(0, 10000);
+    let timeout = observableTimer(0, 10000);
     timeout.subscribe(x => {
       this.userService.getRecentTracks(1, 1).then(data => {
         if (data[0].date !== undefined) {

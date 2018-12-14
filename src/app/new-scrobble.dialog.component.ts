@@ -1,11 +1,11 @@
-import { MdDialogRef } from "@angular/material";
+import { MatDialogRef } from "@angular/material";
 import { Component, OnInit, Output } from "@angular/core";
 import { UserService } from "./user.service";
 import { TrackService } from "./track.service";
 import { ArtistService } from "./artist.service";
 import { AlbumService } from "./album.service";
 import { EventEmitter } from "protractor";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "new-scrobble-dialog",
@@ -34,7 +34,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
   public lastSelectedTrackMillis: any;
 
   constructor(
-    public dialogRef: MdDialogRef<ConfirmDialogNewScrobble>,
+    public dialogRef: MatDialogRef<ConfirmDialogNewScrobble>,
     private userService: UserService,
     private trackService: TrackService,
     private artistService: ArtistService,

@@ -1,42 +1,42 @@
 <div id="filter-buttons">
   <h1>{{ title }} ({{ getDateTitle() }})</h1>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(-1)"
     [disabled]="timeButtonsDisabled"
   >
     All
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(12)"
     [disabled]="timeButtonsDisabled"
   >
     1 Year
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(9)"
     [disabled]="timeButtonsDisabled"
   >
     9 Months
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(6)"
     [disabled]="timeButtonsDisabled"
   >
     6 Months
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(3)"
     [disabled]="timeButtonsDisabled"
   >
     3 Months
   </button>
   <button
-    md-raised-button
+    mat-raised-button
     (click)="changeTimeRange(1)"
     [disabled]="timeButtonsDisabled"
   >
@@ -49,8 +49,8 @@
     (dateRangeChanged)="onDateRangeChanged($event)"
   ></my-date-range-picker>
 </div>
-<md-grid-list cols="6" gutterSize="5" id="list-artists">
-  <md-grid-tile
+<mat-grid-list cols="6" gutterSize="5" id="list-artists">
+  <mat-grid-tile
     *ngIf="topArtist && topArtist.image"
     (click)="goToArtist(topArtist.name)"
     [colspan]="2"
@@ -66,8 +66,8 @@
       <b>{{ topArtist["@attr"].rank }}</b> - {{ topArtist.name }}
     </h2>
     <h3 class="artistPlaycount">{{ topArtist.playcount }} scrobbles</h3>
-  </md-grid-tile>
-  <md-grid-tile
+  </mat-grid-tile>
+  <mat-grid-tile
     *ngFor="let artist of topNineArtists; let i = index"
     (click)="goToArtist(artist.name)"
     [colspan]="1"
@@ -83,15 +83,15 @@
       <b>{{ artist["@attr"].rank }}</b> - {{ artist.name }}
     </h2>
     <h3 class="artistPlaycount">{{ artist.playcount }} scrobbles</h3>
-  </md-grid-tile>
-</md-grid-list>
-<md-grid-list
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list
   cols="9"
   gutterSize="5"
   *ngIf="restOfArtists"
   id="listRestOfArtists"
 >
-  <md-grid-tile
+  <mat-grid-tile
     *ngFor="let artist of restOfArtists; let i = index"
     (click)="goToArtist(artist.name)"
     [colspan]="1"
@@ -107,8 +107,8 @@
       <b>{{ artist["@attr"].rank }}</b> - {{ artist.name }}
     </h2>
     <h3 class="restOfArtistPlaycount">{{ artist.playcount }} scrobbles</h3>
-  </md-grid-tile>
-</md-grid-list>
+  </mat-grid-tile>
+</mat-grid-list>
 <div id="spinner_holder">
   <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>

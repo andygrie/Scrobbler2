@@ -1,9 +1,9 @@
+import { map } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import { Http, URLSearchParams } from "@angular/http";
-import { LocalStorageService } from "angular-2-local-storage";
+import { LocalStorageService } from "./services/localStorage/local-storage.service";
 import { Md5 } from "ts-md5/dist/md5";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class AuthenticationService {
@@ -40,7 +40,7 @@ export class AuthenticationService {
       .get(this.localStorageService.get("APIURL").toString(), {
         search: params
       })
-      .map(data => data.json());
+      .pipe(map(data => data.json()));
   }
   //sets api_key and secret in localstorage
   setLocalStorageItems(): void {
