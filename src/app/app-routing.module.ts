@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { ArtistsComponent } from "./artists.component";
-import { ArtistComponent } from "./artist.component";
-import { AlbumsComponent } from "./albums.component";
-import { RecentTracksComponent } from "./recent-tracks.component";
-import { TracksComponent } from "./tracks.component";
-import { AlbumComponent } from "./album.component";
-import { FriendsComponent } from "./friends.component";
-import { ReleasesComponent } from "./releases.component";
-import { TagsComponent } from "./tags.component";
-import { TagComponent } from "./tag.component";
+import { ArtistsComponent } from "./components/artists/artists.component";
+import { ArtistComponent } from "./components/artist/artist.component";
+import { AlbumsComponent } from "./components/albums/albums.component";
+import { RecentTracksComponent } from "./components/recent-tracks/recent-tracks.component";
+import { TracksComponent } from "./components/tracks/tracks.component";
+import { AlbumComponent } from "./components/album/album.component";
+import { FriendsComponent } from "./components/friends/friends.component";
+import { ReleasesComponent } from "./components/releases/releases.component";
+import { TagsComponent } from "./components/tags/tags.component";
+import { TagComponent } from "./components/tag/tag.component";
 
 const routes: Routes = [
   { path: "home", component: AppComponent },

@@ -1,11 +1,11 @@
 import { timer as observableTimer, Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
-import { AuthenticationService } from "./authentication.service";
+import { AuthenticationService } from "./services/authentication/authentication.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { LocalStorageService } from "./services/localStorage/local-storage.service";
-import { DialogService } from "./dialog.service";
+import { DialogService } from "./services/dialog/dialog.service";
 
-import { UserService } from "./user.service";
+import { UserService } from "./services/user/user.service";
 
 @Component({
   selector: "app-root",
