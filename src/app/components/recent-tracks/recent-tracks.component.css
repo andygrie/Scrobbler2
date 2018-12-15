@@ -95,12 +95,25 @@
   background-color: #ff0000;
   z-index: 3;
 }
-md-radio-button {
+mat-radio-button {
   display: block;
 }
-md-radio-button {
+mat-radio-button {
   margin: 5px;
 }
 #radio-group-holder {
-  float: left;
+  flex: 1;
+}
+
+.card-content-album-selection {
+  display: flex;
+}
+.album-select {
+  margin-top: 0.3rem;
+}
+.album-text {
+  margin-top: 0.7rem;
+}
+.album-image {
+  border-radius: 32px;
 }

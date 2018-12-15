@@ -1,33 +1,38 @@
 <img *ngIf="detailView" [src]="detailView" id="imgDetail" />
 <mat-card id="select-album" *ngIf="albumsForUpdate">
-  <div id="radio-group-holder">
-    <mat-radio-group [(ngModel)]="selectionType">
-      <mat-radio-button value="select"></mat-radio-button>
-      <mat-radio-button value="write"></mat-radio-button>
-    </mat-radio-group>
+  <div class="card-content-album-selection">
+    <div id="radio-group-holder">
+      <mat-radio-group [(ngModel)]="selectionType">
+        <mat-radio-button value="select"></mat-radio-button>
+        <mat-radio-button value="write"></mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <mat-select
+        class="album-select"
+        placeholder="Album"
+        [(ngModel)]="newAlbum"
+        name="album"
+        [disabled]="selectionType != 'select'"
+      >
+        <mat-option
+          *ngFor="let album of albumsForUpdate"
+          [value]="album"
+          [class.valid-album]="album.valid"
+        >
+          {{ album.title }}
+        </mat-option>
+      </mat-select>
+      <input
+        type="text"
+        class="form-control album-text"
+        name="album"
+        [(ngModel)]="newAlbumWritten"
+        id="new-album-written"
+        [disabled]="selectionType != 'write'"
+      />
+    </div>
   </div>
-  <mat-select
-    placeholder="Album"
-    [(ngModel)]="newAlbum"
-    name="album"
-    [disabled]="selectionType != 'select'"
-  >
-    <mat-option
-      *ngFor="let album of albumsForUpdate"
-      [value]="album"
-      [class.valid-album]="album.valid"
-    >
-      {{ album.title }}
-    </mat-option>
-  </mat-select>
-  <input
-    type="text"
-    class="form-control"
-    name="album"
-    [(ngModel)]="newAlbumWritten"
-    id="new-album-written"
-    [disabled]="selectionType != 'write'"
-  />
 </mat-card>
 <button
   mat-fab
@@ -43,7 +48,7 @@
 >
   <mat-icon>save</mat-icon>
 </button>
-<mat-grid-list cols="11" rowHeight="65px" id="listRecentTracks" gutterSize="0">
+<mat-grid-list cols="11" rowHeight="32px" id="listRecentTracks" gutterSize="0">
   <!--
     <div *ngFor="let track of recentTracks | artistfilter:selectedTrack; let i = index;" (click)="getAlbumsForSpecificTrack(track)">
   -->
@@ -82,16 +87,11 @@
       [class.error]="conventionsError(track, i)"
     >
       <img
+        class="album-image"
         [src]="track.image[1]['#text']"
         (mouseover)="imageFocused(track)"
         (mouseout)="imageUnfocused()"
         *ngIf="!track.selected"
-      />
-      <img
-        [src]="newAlbum.image[1]['#text']"
-        (mouseover)="imageFocused(track)"
-        (mouseout)="imageUnfocused()"
-        *ngIf="track.selected && newAlbum && newAlbum.image"
       />
     </mat-grid-tile>
     <mat-grid-tile
@@ -139,9 +139,6 @@
         class="table-link"
         >{{ track.album["#text"] }}</a
       >
-      <!--
-        <a *ngIf="!track.selected" (click)="stopPropagation($event)" href="{{encodeAlbumLinkURIComponent(track.artist['#text'],track.album['#text'])" class="table-link">{{track.album['#text']}}</a>
-      -->
       <p *ngIf="track.selected && newAlbum">{{ newAlbum.name }}</p>
     </mat-grid-tile>
     <mat-grid-tile
