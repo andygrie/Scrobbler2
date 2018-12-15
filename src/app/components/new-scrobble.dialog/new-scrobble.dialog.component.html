@@ -38,7 +38,7 @@
       [(ngModel)]="albumSelect"
       name="album"
       [disabled]="selectionType != 'select'"
-      (change)="onSelectedAlbumChange()"
+      (selectionChange)="onSelectedAlbumChange()"
     >
       <mat-option
         *ngFor="let album of albumsForUpdate"
@@ -80,7 +80,7 @@
       [(ngModel)]="trackSelect"
       name="track"
       [disabled]="selectionTypeTrack != 'select'"
-      (change)="onSelectTrackChange()"
+      (selectionChange)="onSelectTrackChange()"
     >
       <mat-option
         *ngFor="let track of tracksForUpdate"
