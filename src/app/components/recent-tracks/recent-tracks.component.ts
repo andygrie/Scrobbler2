@@ -1,19 +1,19 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { TrackService } from "../../services/track/track.service";
-import { AlbumService } from "../../services/album/album.service";
-import { DialogService } from "../../services/dialog/dialog.service";
-import { escape, unescape, parse } from "querystring";
-import { Observable } from "rxjs";
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { TrackService } from '../../services/track/track.service';
+import { AlbumService } from '../../services/album/album.service';
+import { DialogService } from '../../services/dialog/dialog.service';
+import { escape, unescape, parse } from 'querystring';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "artists",
-  templateUrl: "./recent-tracks.component.html",
-  styleUrls: ["./recent-tracks.component.css"]
+  selector: 'artists',
+  templateUrl: './recent-tracks.component.html',
+  styleUrls: ['./recent-tracks.component.css'],
 })
 export class RecentTracksComponent implements OnInit {
   recentTracks: any[] = new Array<any>();
@@ -30,7 +30,7 @@ export class RecentTracksComponent implements OnInit {
   selectionType: any;
   newAlbumWritten: any;
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   track(event) {
     if (
       this.loadHelper == true &&
@@ -56,7 +56,7 @@ export class RecentTracksComponent implements OnInit {
     private albumService: AlbumService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
   ngOnInit(): void {
     this.isRequesting = true;
@@ -67,7 +67,7 @@ export class RecentTracksComponent implements OnInit {
       this.recentTracks = data;
       console.log(data);
       for (let t of this.recentTracks) {
-        t.date["#text"] = new Date(parseInt(t.date.uts) * 1000);
+        t.date['#text'] = new Date(parseInt(t.date.uts) * 1000);
       }
       this.loadHelper = true;
       this.stopRefreshing();
@@ -83,12 +83,12 @@ export class RecentTracksComponent implements OnInit {
     return (parseInt(error) / this.recentTracks.length) * window.innerHeight;
   }
   conventionsWarning(track: any, index: any): boolean {
-    let conspicuousStrings: string[] = ["(", ")", "[", "]", "Version"];
+    let conspicuousStrings: string[] = ['(', ')', '[', ']', 'Version'];
     let warning = false;
     for (let i = 0; i < conspicuousStrings.length && warning === false; i++) {
       if (
-        track.album["#text"].indexOf(conspicuousStrings[i]) === -1 &&
-        track.artist["#text"].indexOf(conspicuousStrings[i]) === -1 &&
+        track.album['#text'].indexOf(conspicuousStrings[i]) === -1 &&
+        track.artist['#text'].indexOf(conspicuousStrings[i]) === -1 &&
         track.name.indexOf(conspicuousStrings[i]) === -1
       )
         warning = false;
@@ -99,15 +99,15 @@ export class RecentTracksComponent implements OnInit {
     return warning;
   }
   conventionsError(track: any, index): boolean {
-    let conspicuousStrings: string[] = ["Album Version", "Explicit", "[Clean]"];
+    let conspicuousStrings: string[] = ['Album Version', 'Explicit', '[Clean]'];
     let error = false;
 
-    if (track.album["#text"].length == 0) error = true;
+    if (track.album['#text'].length == 0) error = true;
 
     for (let i = 0; i < conspicuousStrings.length && error === false; i++) {
       if (
-        track.album["#text"].indexOf(conspicuousStrings[i]) === -1 &&
-        track.artist["#text"].indexOf(conspicuousStrings[i]) === -1 &&
+        track.album['#text'].indexOf(conspicuousStrings[i]) === -1 &&
+        track.artist['#text'].indexOf(conspicuousStrings[i]) === -1 &&
         track.name.indexOf(conspicuousStrings[i]) === -1
       )
         error = false;
@@ -118,10 +118,10 @@ export class RecentTracksComponent implements OnInit {
     return error;
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
   imageFocused(track: any): void {
-    this.detailView = track.image[3]["#text"];
+    this.detailView = track.image[3]['#text'];
   }
   imageUnfocused(): void {
     this.detailView = null;
@@ -133,8 +133,8 @@ export class RecentTracksComponent implements OnInit {
       this.selectedTrack = track;
       this.loadReleaseGroups(
         0,
-        encodeURIComponent(track.artist["#text"]),
-        track.name
+        encodeURIComponent(track.artist['#text']),
+        track.name,
       );
     } else if (!this.anyTrackSelected()) {
       this.selectedTrack = null;
@@ -147,10 +147,10 @@ export class RecentTracksComponent implements OnInit {
       .getAlbumInfoFromMusicBrainzByArtistName(artistName, offset)
       .then(releases => {
         console.log(releases);
-        if (offset == 0) this.albumsForUpdate = releases["release-groups"];
+        if (offset == 0) this.albumsForUpdate = releases['release-groups'];
         else
           this.albumsForUpdate = this.albumsForUpdate.concat(
-            releases["release-groups"]
+            releases['release-groups'],
           );
         if (offset + 100 < releases.count)
           this.loadReleaseGroups(offset + 100, artistName, track);
@@ -164,7 +164,7 @@ export class RecentTracksComponent implements OnInit {
       .getRecordingsAndReleasesFromMusicBrainzByArtistNameAndRecording(
         artistName,
         track,
-        0
+        0,
       )
       .then(recordingResponse => {
         console.log(recordingResponse);
@@ -182,7 +182,7 @@ export class RecentTracksComponent implements OnInit {
   validateAlbumsForUpdate(helperArray): void {
     helperArray.forEach((helper: any) => {
       let correctAlbum = this.albumsForUpdate.find(
-        album => album.title === helper
+        album => album.title === helper,
       );
       if (correctAlbum != undefined) {
         correctAlbum.valid = true;
@@ -201,20 +201,20 @@ export class RecentTracksComponent implements OnInit {
 
   scrobbleSelectedTracks(): void {
     let selectedTracks = this.recentTracks.filter(
-      track => track.selected == true
+      track => track.selected == true,
     );
 
     for (let track of selectedTracks) {
       let album;
-      if (this.selectionType == "select") album = this.newAlbum.title;
+      if (this.selectionType == 'select') album = this.newAlbum.title;
       else album = this.newAlbumWritten;
 
       this.trackService
         .scrobbleTrack(
-          track.artist["#text"],
+          track.artist['#text'],
           track.name,
           album,
-          parseInt(track.date.uts) + 60
+          parseInt(track.date.uts) + 60,
         )
         .then(data => {
           this.userService
@@ -223,18 +223,20 @@ export class RecentTracksComponent implements OnInit {
               1,
               parseInt(data.scrobbles.scrobble.timestamp) - 1,
               parseInt(data.scrobbles.scrobble.timestamp) + 1,
-              this.localStorageService.get("name").toString()
+              this.localStorageService.get('name').toString(),
             )
             .then(correctedScrobbles => {
-              track.album = correctedScrobbles.recenttracks.track[0].album;
-              track.artist = correctedScrobbles.recenttracks.track[0].artist;
-              track.date = correctedScrobbles.recenttracks.track[0].date;
-              track.image = correctedScrobbles.recenttracks.track[0].image;
-              track.mbid = correctedScrobbles.recenttracks.track[0].mbid;
-              track.name = correctedScrobbles.recenttracks.track[0].name;
-              track.streamable =
-                correctedScrobbles.recenttracks.track[0].streamable;
-              track.url = correctedScrobbles.recenttracks.track[0].url;
+              if (correctedScrobbles.recenttracks.track.length > 0) {
+                track.album = correctedScrobbles.recenttracks.track[0].album;
+                track.artist = correctedScrobbles.recenttracks.track[0].artist;
+                track.date = correctedScrobbles.recenttracks.track[0].date;
+                track.image = correctedScrobbles.recenttracks.track[0].image;
+                track.mbid = correctedScrobbles.recenttracks.track[0].mbid;
+                track.name = correctedScrobbles.recenttracks.track[0].name;
+                track.streamable =
+                  correctedScrobbles.recenttracks.track[0].streamable;
+                track.url = correctedScrobbles.recenttracks.track[0].url;
+              }
               track.selected = false;
               if (!this.anyTrackSelected()) {
                 this.selectedTrack = null;
@@ -256,12 +258,12 @@ export class RecentTracksComponent implements OnInit {
     event.stopPropagation();
   }
   goToArtist(artistName: string): void {
-    this.router.navigate(["/artist", artistName]);
+    this.router.navigate(['/artist', artistName]);
   }
   public openDialogTrackinfo(
     artistName: string,
     trackName: string,
-    albumName: string
+    albumName: string,
   ) {
     this.dialogService
       .confirmTrackinfoDialog(trackName, artistName, albumName)
@@ -273,7 +275,7 @@ export class RecentTracksComponent implements OnInit {
   encodeAlbumLinkURIComponent(artist: string, album: string): string {
     //album/{{track.album['#text']}}/{{track.artist['#text']}}
     return (
-      "album/" + encodeURIComponent(album) + "/" + encodeURIComponent(artist)
+      'album/' + encodeURIComponent(album) + '/' + encodeURIComponent(artist)
     );
   }
   openDialogNewScrobbleBefore(date): void {
@@ -289,13 +291,13 @@ export class RecentTracksComponent implements OnInit {
             1,
             parseInt(res.startDate) - 1,
             parseInt(res.endDate) + 1,
-            this.localStorageService.get("name").toString()
+            this.localStorageService.get('name').toString(),
           )
           .then(scrobbles => {
             for (let i = 0; i < scrobbles.recenttracks.track.length; i++) {
               if (scrobbles.recenttracks.track[i].date != undefined) {
-                scrobbles.recenttracks.track[i].date["#text"] = new Date(
-                  parseInt(scrobbles.recenttracks.track[i].date.uts) * 1000
+                scrobbles.recenttracks.track[i].date['#text'] = new Date(
+                  parseInt(scrobbles.recenttracks.track[i].date.uts) * 1000,
                 );
                 this.recentTracks.push(scrobbles.recenttracks.track[i]);
               }
