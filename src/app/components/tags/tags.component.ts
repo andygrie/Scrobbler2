@@ -1,20 +1,20 @@
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
 
 @Component({
-  selector: "tracks",
-  templateUrl: "./tags.component.html",
-  styleUrls: ["./tags.component.css"]
+  selector: 'tracks',
+  templateUrl: './tags.component.html',
+  styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
-  title = "Tags(Calculated From Top 200 Artists)";
+  title = 'Tags(Calculated From Top 200 Artists)';
   topTags: any[] = new Array<any>();
   topArtists: any[] = new Array<any>();
 
   constructor(
     private userService: UserService,
-    private artistService: ArtistService
+    private artistService: ArtistService,
   ) {}
   ngOnInit(): void {
     this.userService.getTopArtists(200, 1).then(data => {
@@ -22,12 +22,12 @@ export class TagsComponent implements OnInit {
       for (let i = 0; i < data.length; i++) {
         this.artistService.getTopTags(data[i].name).then(tagData => {
           let tag = this.topTags.find(
-            tag => tag.tagname.toLowerCase() === tagData[0].name.toLowerCase()
+            tag => tag.tagname.toLowerCase() === tagData[0].name.toLowerCase(),
           );
           if (tag == undefined) {
             this.topTags.push({
               tagname: this.toTitleCase(tagData[0].name),
-              count: parseInt(data[i].playcount)
+              count: parseInt(data[i].playcount),
             });
           } else tag.count += parseInt(data[i].playcount);
 
@@ -44,6 +44,6 @@ export class TagsComponent implements OnInit {
     });
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

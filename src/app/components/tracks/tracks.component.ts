@@ -1,14 +1,14 @@
-import { Component, OnInit, HostListener } from "@angular/core";
+import { Component, OnInit, HostListener } from '@angular/core';
 
-import { UserService } from "../../services/user/user.service";
+import { UserService } from '../../services/user/user.service';
 
 @Component({
-  selector: "tracks",
-  templateUrl: "./tracks.component.html",
-  styleUrls: ["./tracks.component.css"]
+  selector: 'tracks',
+  templateUrl: './tracks.component.html',
+  styleUrls: ['./tracks.component.css'],
 })
 export class TracksComponent implements OnInit {
-  title = "Tracks";
+  title = 'Tracks';
   detailView: string;
   currentPage: number = 1;
   limit: number = 200;
@@ -17,7 +17,7 @@ export class TracksComponent implements OnInit {
   loadHelper: boolean;
   period: string;
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   track(event) {
     if (
       this.loadHelper == true &&
@@ -33,7 +33,7 @@ export class TracksComponent implements OnInit {
           this.loadHelper = true;
           this.stopRefreshing();
         }, this.showErrorMessage);
-      console.log("bottom");
+      console.log('bottom');
     }
   }
 
@@ -41,7 +41,7 @@ export class TracksComponent implements OnInit {
   ngOnInit(): void {
     this.isRequesting = true;
     this.userService
-      .getTopTracks(this.limit, this.currentPage, "overall")
+      .getTopTracks(this.limit, this.currentPage, 'overall')
       .then(data => {
         this.topTracks = data;
         this.stopRefreshing();
@@ -49,10 +49,10 @@ export class TracksComponent implements OnInit {
       }, this.showErrorMessage);
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
   imageFocused(track: any): void {
-    this.detailView = track.image[3]["#text"];
+    this.detailView = track.image[3]['#text'];
   }
   imageUnfocused(): void {
     this.detailView = null;

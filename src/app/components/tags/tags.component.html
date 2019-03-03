@@ -1,7 +1,7 @@
 <h1>{{ title }}</h1>
 <mat-list id="list-tags">
   <mat-list-item *ngFor="let tag of topTags">
-    <a href="/tag/{{tag.tagname}}"
+    <a href="/tag/{{ tag.tagname }}"
       ><b>{{ tag.tagname }}</b></a
     ><span> - {{ tag.count }}</span>
   </mat-list-item>

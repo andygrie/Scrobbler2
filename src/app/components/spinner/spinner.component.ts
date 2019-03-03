@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy } from "@angular/core";
+import { Component, Input, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: "my-spinner",
-  templateUrl: "spinner.component.html"
+  selector: 'my-spinner',
+  templateUrl: 'spinner.component.html',
 })
 export class SpinnerComponent implements OnDestroy {
   private currentTimeout: any;

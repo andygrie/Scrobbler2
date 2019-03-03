@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmDialogAlbumsOfArtist } from "./albums-of-artist.dialog.component";
+import { ConfirmDialogAlbumsOfArtist } from './albums-of-artist.dialog.component';
 
-describe("ConfirmDialogAlbumsOfArtist", () => {
+describe('ConfirmDialogAlbumsOfArtist', () => {
   let component: ConfirmDialogAlbumsOfArtist;
   let fixture: ComponentFixture<ConfirmDialogAlbumsOfArtist>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogAlbumsOfArtist]
+      declarations: [ConfirmDialogAlbumsOfArtist],
     }).compileComponents();
   }));
 
@@ -18,7 +18,7 @@ describe("ConfirmDialogAlbumsOfArtist", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { TagService } from "../../services/tag/tag.service";
-import { AlbumService } from "../../services/album/album.service";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { TagService } from '../../services/tag/tag.service';
+import { AlbumService } from '../../services/album/album.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 
 @Component({
-  selector: "tracks",
-  templateUrl: "./tag.component.html",
-  styleUrls: ["./tag.component.css"]
+  selector: 'tracks',
+  templateUrl: './tag.component.html',
+  styleUrls: ['./tag.component.css'],
 })
 export class TagComponent implements OnInit {
   private title;
@@ -24,11 +24,11 @@ export class TagComponent implements OnInit {
     private artistService: ArtistService,
     private tagService: TagService,
     private albumService: AlbumService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.title = params["name"];
+      this.title = params['name'];
       this.loadAlbums();
     });
   }
@@ -46,7 +46,7 @@ export class TagComponent implements OnInit {
           this.getImageOfAlbum(album).then(data => {
             this.topNineAlbums.push(album);
             this.topNineAlbums.sort(function(a, b) {
-              return parseInt(a["@attr"].rank) - parseInt(b["@attr"].rank);
+              return parseInt(a['@attr'].rank) - parseInt(b['@attr'].rank);
             });
             if (this.topNineAlbums.length % 8 == 0) {
               console.log(this.topNineAlbums);
@@ -61,7 +61,7 @@ export class TagComponent implements OnInit {
       .getInfo(
         album.name,
         album.artist.name,
-        this.localStorageService.get("name").toString()
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         console.log(album);
@@ -76,6 +76,6 @@ export class TagComponent implements OnInit {
     });
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

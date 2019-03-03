@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { DialogService } from "../../services/dialog/dialog.service";
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { DialogService } from '../../services/dialog/dialog.service';
 
 @Component({
-  selector: "friends",
-  templateUrl: "./friends.component.html",
-  styleUrls: ["./friends.component.css"]
+  selector: 'friends',
+  templateUrl: './friends.component.html',
+  styleUrls: ['./friends.component.css'],
 })
 export class FriendsComponent implements OnInit {
-  title = "Friends Listened To (last 30 days):";
+  title = 'Friends Listened To (last 30 days):';
   friends: any[];
   artists: any[] = new Array<any>();
   topArtist: any;
@@ -24,7 +24,7 @@ export class FriendsComponent implements OnInit {
     private userService: UserService,
     private artistService: ArtistService,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
   ngOnInit(): void {
     this.getFriends();
@@ -32,7 +32,7 @@ export class FriendsComponent implements OnInit {
 
   getFriends(): void {
     this.isRequesting = true;
-    this.userService.getFriends(1, 200, "andygrie", 1).then(data => {
+    this.userService.getFriends(1, 200, 'andygrie', 1).then(data => {
       this.friends = data.friends.user;
       for (let friend of this.friends) {
         this.getRecentTracksOfFriend(friend);
@@ -52,14 +52,14 @@ export class FriendsComponent implements OnInit {
   addArtistStatistics(statistics: any[], friend: string): void {
     for (let artistStatistic of statistics) {
       let existingStatistics = this.artists.find(
-        artist => artist.artist == artistStatistic.name
+        artist => artist.artist == artistStatistic.name,
       );
       if (existingStatistics == undefined) {
         this.artists.push({
           artist: artistStatistic.name,
           playcount: parseInt(artistStatistic.playcount),
-          imageURL: "",
-          listeners: [friend]
+          imageURL: '',
+          listeners: [friend],
         });
       } else {
         existingStatistics.playcount += parseInt(artistStatistic.playcount);
@@ -81,9 +81,9 @@ export class FriendsComponent implements OnInit {
     }
   }
   getImageURLOfArtist(artist): void {
-    this.artistService.getInfo(artist.artist, "").then(data => {
+    this.artistService.getInfo(artist.artist, '').then(data => {
       if (data.artist != undefined)
-        artist.imageURL = data.artist.image[4]["#text"];
+        artist.imageURL = data.artist.image[4]['#text'];
     }, this.showErrorMessage);
   }
   public openDialog(artist: any) {
@@ -92,16 +92,16 @@ export class FriendsComponent implements OnInit {
         artist.artist,
         artist.listeners,
         this.startDate,
-        this.endDate
+        this.endDate,
       )
       .subscribe(res => {
-        if (res) this.router.navigate(["/artist", artist.artist]);
+        if (res) this.router.navigate(['/artist', artist.artist]);
       });
   }
   artistsLoaded(): boolean {
-    return this.artists.find(artist => artist.imageURL == "") != undefined;
+    return this.artists.find(artist => artist.imageURL == '') != undefined;
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

@@ -1,12 +1,12 @@
-import { MatDialogRef } from "@angular/material";
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { UserService } from "../../services/user/user.service";
+import { MatDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
-  selector: "albums-of-artist.dialog",
-  templateUrl: "albums-of-artist.dialog.component.html",
-  styleUrls: ["albums-of-artist.dialog.component.css"]
+  selector: 'albums-of-artist.dialog',
+  templateUrl: 'albums-of-artist.dialog.component.html',
+  styleUrls: ['albums-of-artist.dialog.component.css'],
 })
 export class ConfirmDialogAlbumsOfArtist implements OnInit {
   ngOnInit(): void {
@@ -21,11 +21,11 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
   public startDate: number;
   public endDate: number;
   friendsDone: number = 0;
-  tooltipPosition: string = "before";
+  tooltipPosition: string = 'before';
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogAlbumsOfArtist>,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   addAlbumStatistics(friend: string, page: number): void {
@@ -36,16 +36,16 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
       .getArtistTracks(page, this.title, this.startDate, this.endDate, friend)
       .then(data => {
         for (let track of data) {
-          if (track.album["#text"] != "") {
+          if (track.album['#text'] != '') {
             let existingAlbum = this.albums.find(
-              album => album.name == track.album["#text"]
+              album => album.name == track.album['#text'],
             );
             if (existingAlbum == undefined) {
               this.albums.push({
-                name: track.album["#text"],
+                name: track.album['#text'],
                 playcount: 1,
-                imageURL: track.image[3]["#text"],
-                listeners: [friend]
+                imageURL: track.image[3]['#text'],
+                listeners: [friend],
               });
             } else {
               existingAlbum.playcount++;
@@ -57,14 +57,14 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
             }
           } else {
             let existingAlbum = this.albums.find(
-              album => album.name == "UNKNOWN ALBUM"
+              album => album.name == 'UNKNOWN ALBUM',
             );
             if (existingAlbum == undefined) {
               this.albums.push({
-                name: "UNKNOWN ALBUM",
+                name: 'UNKNOWN ALBUM',
                 playcount: 1,
-                imageURL: "",
-                listeners: [friend]
+                imageURL: '',
+                listeners: [friend],
               });
             } else {
               existingAlbum.playcount++;
@@ -94,9 +94,9 @@ export class ConfirmDialogAlbumsOfArtist implements OnInit {
   }
   goToAlbum(album: string, artist: string) {
     this.dialogRef.close(false);
-    this.router.navigate(["/album", album, artist]);
+    this.router.navigate(['/album', album, artist]);
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

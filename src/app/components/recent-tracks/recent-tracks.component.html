@@ -135,9 +135,9 @@
       <a
         *ngIf="!track.selected"
         (click)="stopPropagation($event)"
-        href="album/{{track.album['#text']}}/{{track.artist['#text']}}"
+        href="album/{{ track.album['#text'] }}/{{ track.artist['#text'] }}"
         class="table-link"
-        >{{ track.album["#text"] }}</a
+        >{{ track.album['#text'] }}</a
       >
       <p *ngIf="track.selected && newAlbum">{{ newAlbum.name }}</p>
     </mat-grid-tile>
@@ -154,9 +154,9 @@
       <a
         *ngIf="!track.selected"
         (click)="stopPropagation($event)"
-        href="artist/{{track.artist['#text']}}"
+        href="artist/{{ track.artist['#text'] }}"
         class="table-link"
-        >{{ track.artist["#text"] }}</a
+        >{{ track.artist['#text'] }}</a
       >
       <mat-form-field *ngIf="track.selected" (click)="stopPropagation($event)">
         <input
@@ -177,7 +177,7 @@
       [class.error]="conventionsError(track, i)"
     >
       <p *ngIf="track.date" class="table-trackdate">
-        {{ track.date["#text"] | date: "medium" }}
+        {{ track.date['#text'] | date: 'medium' }}
       </p>
       <p *ngIf="!track.date" class="table-trackdate">now playing</p>
     </mat-grid-tile>

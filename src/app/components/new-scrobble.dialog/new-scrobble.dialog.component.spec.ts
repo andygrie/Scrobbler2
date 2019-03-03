@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmDialogNewScrobble } from "./new-scrobble.dialog.component";
+import { ConfirmDialogNewScrobble } from './new-scrobble.dialog.component';
 
-describe("ConfirmDialogNewScrobble", () => {
+describe('ConfirmDialogNewScrobble', () => {
   let component: ConfirmDialogNewScrobble;
   let fixture: ComponentFixture<ConfirmDialogNewScrobble>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ConfirmDialogNewScrobble]
+      declarations: [ConfirmDialogNewScrobble],
     }).compileComponents();
   }));
 
@@ -18,7 +18,7 @@ describe("ConfirmDialogNewScrobble", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

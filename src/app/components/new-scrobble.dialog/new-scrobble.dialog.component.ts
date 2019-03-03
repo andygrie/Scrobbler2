@@ -1,16 +1,16 @@
-import { MatDialogRef } from "@angular/material";
-import { Component, OnInit, Output } from "@angular/core";
-import { UserService } from "../../services/user/user.service";
-import { TrackService } from "../../services/track/track.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { AlbumService } from "../../services/album/album.service";
-import { EventEmitter } from "protractor";
-import { Observable } from "rxjs";
+import { MatDialogRef } from '@angular/material';
+import { Component, OnInit, Output } from '@angular/core';
+import { UserService } from '../../services/user/user.service';
+import { TrackService } from '../../services/track/track.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { AlbumService } from '../../services/album/album.service';
+import { EventEmitter } from 'protractor';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "new-scrobble-dialog",
-  templateUrl: "new-scrobble.dialog.component.html",
-  styleUrls: ["new-scrobble.dialog.component.css"]
+  selector: 'new-scrobble-dialog',
+  templateUrl: 'new-scrobble.dialog.component.html',
+  styleUrls: ['new-scrobble.dialog.component.css'],
 })
 export class ConfirmDialogNewScrobble implements OnInit {
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
     private userService: UserService,
     private trackService: TrackService,
     private artistService: ArtistService,
-    private albumService: AlbumService
+    private albumService: AlbumService,
   ) {}
 
   onSubmit() {
@@ -57,13 +57,13 @@ export class ConfirmDialogNewScrobble implements OnInit {
     let seconds = Math.round(millis / 1000);
 
     let correctAlbum;
-    if (this.selectionType == "write") correctAlbum = this.album;
+    if (this.selectionType == 'write') correctAlbum = this.album;
     else correctAlbum = this.albumSelect.title;
 
     if (this.wholeAlbum) this.onSubmitWholeAlbum(0, seconds, correctAlbum);
     else {
       let correctTrack;
-      if (this.selectionTypeTrack == "write") correctTrack = this.track;
+      if (this.selectionTypeTrack == 'write') correctTrack = this.track;
       else correctTrack = this.trackSelect.title;
 
       this.trackService
@@ -72,7 +72,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
           console.log(data);
           this.dialogRef.close({
             startDate: data.scrobbles.scrobble.timestamp,
-            endDate: data.scrobbles.scrobble.timestamp
+            endDate: data.scrobbles.scrobble.timestamp,
           });
         }, this.showErrorMessage);
     }
@@ -85,7 +85,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
           this.artist,
           this.tracksForUpdate[index].title,
           album,
-          currentDateTime
+          currentDateTime,
         )
         .then(data => {
           console.log(data);
@@ -93,7 +93,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
             index + 1,
             currentDateTime +
               Math.round(parseInt(this.tracksForUpdate[index].length) / 1000),
-            album
+            album,
           );
         }, this.showErrorMessage);
     } else {
@@ -105,7 +105,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
 
       this.dialogRef.close({
         startDate: Math.round(millis / 1000),
-        endDate: currentDateTime
+        endDate: currentDateTime,
       });
     }
   }
@@ -114,10 +114,10 @@ export class ConfirmDialogNewScrobble implements OnInit {
     this.artistService
       .getAlbumInfoFromMusicBrainzByArtistName(this.artist, offset)
       .then(releases => {
-        if (offset == 0) this.albumsForUpdate = releases["release-groups"];
+        if (offset == 0) this.albumsForUpdate = releases['release-groups'];
         else
           this.albumsForUpdate = this.albumsForUpdate.concat(
-            releases["release-groups"]
+            releases['release-groups'],
           );
         if (offset + 100 < releases.count) this.loadReleaseGroups(offset + 100);
         else {
@@ -138,7 +138,7 @@ export class ConfirmDialogNewScrobble implements OnInit {
       .getRecordingsFromMusicBrainzByRelease(this.albumSelect.id)
       .then(recordings => {
         let release = this.albumService.getOptimalReleaseFromArray(
-          recordings.releases
+          recordings.releases,
         );
         console.log(release);
         this.tracksForUpdate = [];
@@ -157,13 +157,13 @@ export class ConfirmDialogNewScrobble implements OnInit {
         this.trackSelect.length;
       this.datetimeAfterText =
         new Date(this.datetimeAfter).toLocaleDateString() +
-        " " +
+        ' ' +
         new Date(this.datetimeAfter).toLocaleTimeString();
       this.lastSelectedTrackMillis = this.trackSelect.length;
     }
   }
 
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

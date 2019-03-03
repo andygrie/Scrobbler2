@@ -6,7 +6,9 @@
     <div *ngIf="artistInfo.bio" [innerHTML]="artistInfo.bio.summary"></div>
     <mat-list>
       <h2 mat-header>Stats</h2>
-      <mat-list-item> Listeners: {{ artistInfo.stats.listeners }} </mat-list-item>
+      <mat-list-item>
+        Listeners: {{ artistInfo.stats.listeners }}
+      </mat-list-item>
       <mat-list-item>
         Total Playcount: {{ artistInfo.stats.playcount }}
       </mat-list-item>

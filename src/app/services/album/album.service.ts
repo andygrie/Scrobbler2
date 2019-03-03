@@ -1,25 +1,25 @@
-import { Injectable } from "@angular/core";
-import { Http, URLSearchParams } from "@angular/http";
-import { LocalStorageService } from "../localStorage/local-storage.service";
-import { Md5 } from "ts-md5/dist/md5";
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams } from '@angular/http';
+import { LocalStorageService } from '../localStorage/local-storage.service';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class AlbumService {
   constructor(
     private http: Http,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
   ) {}
   getInfo(album: string, artist: string, username: string): Promise<any> {
     let params: URLSearchParams = new URLSearchParams();
-    params.set("api_key", this.localStorageService.get("api_key").toString());
-    params.set("album", album);
-    params.set("artist", artist);
-    params.set("method", "album.getInfo");
-    params.set("username", username);
-    params.set("format", "json");
+    params.set('api_key', this.localStorageService.get('api_key').toString());
+    params.set('album', album);
+    params.set('artist', artist);
+    params.set('method', 'album.getInfo');
+    params.set('username', username);
+    params.set('format', 'json');
     return this.http
-      .get(this.localStorageService.get("APIURL").toString(), {
-        search: params
+      .get(this.localStorageService.get('APIURL').toString(), {
+        search: params,
       })
       .toPromise()
       .then(data => data.json() as any)
@@ -27,7 +27,7 @@ export class AlbumService {
   }
   getReleasesFromMusicBrainzByArtistAndRelease(
     artist: string,
-    release: string
+    release: string,
   ): Promise<any> {
     return this.http
       .get(
@@ -35,7 +35,7 @@ export class AlbumService {
           artist +
           '" AND release:"' +
           release +
-          '"'
+          '"',
       )
       .toPromise()
       .then(data => data.json() as any)
@@ -45,9 +45,9 @@ export class AlbumService {
     // return this.http.get('http://musicbrainz.org/ws/2/release?release=' + mbid + '&inc=ratings&fmt=json&limit=100')
     return this.http
       .get(
-        "http://musicbrainz.org/ws/2/release?release-group=" +
+        'http://musicbrainz.org/ws/2/release?release-group=' +
           mbid +
-          "&inc=recordings"
+          '&inc=recordings',
       )
       .toPromise()
       .then(data => data.json() as any)
@@ -64,7 +64,7 @@ export class AlbumService {
     let helperArray = [];
     for (let rel of releases) {
       let helperObject = helperArray.find(
-        obj => obj.trackCount == rel.media[0].tracks.length
+        obj => obj.trackCount == rel.media[0].tracks.length,
       );
       if (helperObject != undefined) helperObject.count += 1;
       else {
@@ -81,7 +81,7 @@ export class AlbumService {
     });
     //element with highest number returned
     return releases.find(
-      rel => rel.media[0].tracks.length == helperArray[0].trackCount
+      rel => rel.media[0].tracks.length == helperArray[0].trackCount,
     );
   }
   private handleError(error: any): Promise<any> {

@@ -1,8 +1,8 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "artistfilter",
-  pure: false
+  name: 'artistfilter',
+  pure: false,
 })
 export class ArtistFilterPipe implements PipeTransform {
   transform(items: any[], filter: any): any {
@@ -11,7 +11,7 @@ export class ArtistFilterPipe implements PipeTransform {
     }
     // filter items array, items which match and return true will be kept, false will be filtered out
     return items.filter(
-      item => item.artist["#text"].indexOf(filter.artist["#text"]) !== -1
+      item => item.artist['#text'].indexOf(filter.artist['#text']) !== -1,
     );
   }
 }

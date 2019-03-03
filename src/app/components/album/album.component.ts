@@ -1,31 +1,31 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
+import { Component, OnInit, OnChanges } from '@angular/core';
 import {
   trigger,
   state,
   animate,
   transition,
-  style
-} from "@angular/animations";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { UserService } from "../../services/user/user.service";
-import { AlbumService } from "../../services/album/album.service";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
-import { TrackService } from "../../services/track/track.service";
-import { ArtistService } from "../../services/artist/artist.service";
+  style,
+} from '@angular/animations';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { UserService } from '../../services/user/user.service';
+import { AlbumService } from '../../services/album/album.service';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
+import { TrackService } from '../../services/track/track.service';
+import { ArtistService } from '../../services/artist/artist.service';
 
 declare let d3: any;
 
 @Component({
-  selector: "album",
+  selector: 'album',
   animations: [
-    trigger("isVisibleChanged", [
-      state("hidden", style({ opacity: 0.9 })),
-      state("shown", style({ opacity: 0 })),
-      transition("shown <=> hidden", animate("300ms"))
-    ])
+    trigger('isVisibleChanged', [
+      state('hidden', style({ opacity: 0.9 })),
+      state('shown', style({ opacity: 0 })),
+      transition('shown <=> hidden', animate('300ms')),
+    ]),
   ],
-  templateUrl: "./album.component.html",
-  styleUrls: ["./album.component.css"]
+  templateUrl: './album.component.html',
+  styleUrls: ['./album.component.css'],
 })
 export class AlbumComponent implements OnInit {
   artistName: string;
@@ -33,15 +33,15 @@ export class AlbumComponent implements OnInit {
   albumInfo: any;
   artistTracks: any[];
   optionsAlbum: any;
-  imageStatus: string = "hidden";
+  imageStatus: string = 'hidden';
   options: any;
   data: any;
   correctRelease: any;
   allReleaseGroups: any = [];
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.artistName = params["artist"];
-      this.albumName = params["name"];
+      this.artistName = params['artist'];
+      this.albumName = params['name'];
       this.getArtistTracks(1);
       this.getAlbumInfo();
       this.loadReleaseGroups(0);
@@ -52,13 +52,13 @@ export class AlbumComponent implements OnInit {
       .getAlbumInfoFromMusicBrainzByArtistName(this.artistName, offset)
       .then(releases => {
         this.allReleaseGroups = this.allReleaseGroups.concat(
-          releases["release-groups"]
+          releases['release-groups'],
         );
         if (offset + 100 < releases.count) this.loadReleaseGroups(offset + 100);
         else {
           console.log(this.allReleaseGroups);
           let correctReleaseGroup = this.allReleaseGroups.find(
-            rg => rg.title === this.albumName
+            rg => rg.title === this.albumName,
           );
           console.log(correctReleaseGroup);
           if (correctReleaseGroup != undefined) {
@@ -67,7 +67,7 @@ export class AlbumComponent implements OnInit {
               .then(recordings => {
                 console.log(correctReleaseGroup.id);
                 this.correctRelease = this.albumService.getOptimalReleaseFromArray(
-                  recordings.releases
+                  recordings.releases,
                 );
 
                 console.log(recordings);
@@ -84,7 +84,7 @@ export class AlbumComponent implements OnInit {
     private albumService: AlbumService,
     private trackService: TrackService,
     private localStorageService: LocalStorageService,
-    private artistService: ArtistService
+    private artistService: ArtistService,
   ) {}
 
   getAlbumInfo(): void {
@@ -92,7 +92,7 @@ export class AlbumComponent implements OnInit {
       .getInfo(
         this.albumName,
         this.artistName,
-        this.localStorageService.get("name").toString()
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         this.albumInfo = data.album;
@@ -101,19 +101,19 @@ export class AlbumComponent implements OnInit {
             .getInfo(
               this.artistName,
               track.name,
-              this.localStorageService.get("name").toString()
+              this.localStorageService.get('name').toString(),
             )
             .then(data => {
               if (data !== undefined) {
                 track.playcount = data.playcount;
-                track.userplaycount = data["userplaycount"];
+                track.userplaycount = data['userplaycount'];
               } else {
                 track.playcount = 0;
                 track.userplaycount = 0;
               }
               if (
                 this.albumInfo.tracks.track.find(
-                  searchTrack => searchTrack.playcount === undefined
+                  searchTrack => searchTrack.playcount === undefined,
                 ) === undefined
               )
                 console.log(data);
@@ -128,7 +128,7 @@ export class AlbumComponent implements OnInit {
         this.artistName,
         -1,
         -1,
-        this.localStorageService.get("name").toString()
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         if (this.artistTracks == undefined)
@@ -146,18 +146,18 @@ export class AlbumComponent implements OnInit {
     let minutes = Math.floor(parseInt(duration) / 60);
     let seconds = parseInt(duration) - Math.floor(parseInt(duration) / 60) * 60;
     let secondsString: string;
-    if (seconds < 10) secondsString = "0" + seconds;
+    if (seconds < 10) secondsString = '0' + seconds;
     else secondsString = seconds.toString();
-    return minutes + ":" + secondsString;
+    return minutes + ':' + secondsString;
   }
   imageHovered(): void {
-    this.imageStatus = "shown";
+    this.imageStatus = 'shown';
   }
   imageLeft(): void {
-    this.imageStatus = "hidden";
+    this.imageStatus = 'hidden';
   }
   showErrorMessage(error: any): void {
     console.log(error);
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
 }

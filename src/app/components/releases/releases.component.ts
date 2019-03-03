@@ -1,17 +1,17 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
 
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { TrackService } from "../../services/track/track.service";
-import { AlbumService } from "../../services/album/album.service";
-import { DialogService } from "../../services/dialog/dialog.service";
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { TrackService } from '../../services/track/track.service';
+import { AlbumService } from '../../services/album/album.service';
+import { DialogService } from '../../services/dialog/dialog.service';
 
 @Component({
-  selector: "releases",
-  templateUrl: "./releases.component.html",
-  styleUrls: ["./releases.component.css"]
+  selector: 'releases',
+  templateUrl: './releases.component.html',
+  styleUrls: ['./releases.component.css'],
 })
 export class ReleasesComponent implements OnInit {
   artists: any[] = new Array<any>();
@@ -23,7 +23,7 @@ export class ReleasesComponent implements OnInit {
     private albumService: AlbumService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
   ngOnInit(): void {
     this.getArtists(1, new Array<any>());
@@ -39,7 +39,7 @@ export class ReleasesComponent implements OnInit {
   }
 
   getAlbumInfo(artists): void {
-    if (artists[0].mbid != undefined && artists[0].mbid != "") {
+    if (artists[0].mbid != undefined && artists[0].mbid != '') {
       console.log(artists[0].name);
       this.delay(700).then(result => {
         this.artistService
@@ -47,8 +47,8 @@ export class ReleasesComponent implements OnInit {
           .then(info => {
             console.log(info);
             this.artists.push(info);
-            for (let rg of info["release-groups"]) rg.artist = artists[0].name;
-            this.albums = this.albums.concat(info["release-groups"]);
+            for (let rg of info['release-groups']) rg.artist = artists[0].name;
+            this.albums = this.albums.concat(info['release-groups']);
             console.log(this.artists);
             artists.shift();
             if (artists.length != 0) this.getAlbumInfo(artists);
@@ -60,7 +60,7 @@ export class ReleasesComponent implements OnInit {
     }
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
   delay(ms: number): Promise<any> {
     return new Promise(resolve => setTimeout(resolve, ms));

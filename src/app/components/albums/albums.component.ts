@@ -1,18 +1,18 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
-import { IMyOptions, IMyDateRangeModel } from "mydaterangepicker";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
+import { IMyOptions, IMyDateRangeModel } from 'mydaterangepicker';
 
-import { UserService } from "../../services/user/user.service";
-import { AlbumService } from "../../services/album/album.service";
+import { UserService } from '../../services/user/user.service';
+import { AlbumService } from '../../services/album/album.service';
 
 @Component({
-  selector: "albums",
-  templateUrl: "./albums.component.html",
-  styleUrls: ["./albums.component.css"]
+  selector: 'albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.css'],
 })
 export class AlbumsComponent implements OnInit {
-  title = "Albums";
+  title = 'Albums';
   topAlbum: any;
   topNineAlbums: any[];
   restOfAlbums: any[];
@@ -27,14 +27,14 @@ export class AlbumsComponent implements OnInit {
 
   //date-range-picker
   myDateRangePickerOptions: IMyOptions = {
-    dateFormat: "dd.mm.yyyy",
+    dateFormat: 'dd.mm.yyyy',
     showClearBtn: false,
     showClearDateRangeBtn: false,
-    editableDateRangeField: false
+    editableDateRangeField: false,
   };
   dateRange: Object;
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   track(event) {
     if (
       this.loadHelper == true &&
@@ -42,14 +42,14 @@ export class AlbumsComponent implements OnInit {
     ) {
       this.loadHelper = false;
       this.loadMoreAlbums();
-      console.log("bottom");
+      console.log('bottom');
     }
   }
   constructor(
     private userService: UserService,
     private albumService: AlbumService,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.loadAlbums();
@@ -65,13 +65,13 @@ export class AlbumsComponent implements OnInit {
           beginDate: {
             year: begin.getFullYear(),
             month: begin.getMonth() + 1,
-            day: begin.getDate()
+            day: begin.getDate(),
           },
           endDate: {
             year: end.getFullYear(),
             month: end.getMonth() + 1,
-            day: end.getDate()
-          }
+            day: end.getDate(),
+          },
         };
         this.currentPage = 1;
         this.topAlbum = data[0];
@@ -85,7 +85,7 @@ export class AlbumsComponent implements OnInit {
             this.getImageOfAlbum(album).then(data => {
               this.topNineAlbums.push(album);
               this.topNineAlbums.sort(function(a, b) {
-                return parseInt(a["@attr"].rank) - parseInt(b["@attr"].rank);
+                return parseInt(a['@attr'].rank) - parseInt(b['@attr'].rank);
               });
               if (this.topNineAlbums.length % 8 == 0) {
                 this.loadMoreDisabled = false;
@@ -103,31 +103,31 @@ export class AlbumsComponent implements OnInit {
     return this.albumService
       .getInfo(
         album.name,
-        album.artist["#text"],
-        this.localStorageService.get("name").toString()
+        album.artist['#text'],
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         album.image = data.album.image;
       }, this.showErrorMessage);
   }
   getDateTitle(): string {
-    let dateString: string = "";
-    if (this.startDate == 1) dateString = "all time";
+    let dateString: string = '';
+    if (this.startDate == 1) dateString = 'all time';
     else {
       let start = new Date(this.startDate * 1000);
       let end = new Date(this.endDate * 1000);
-      dateString = this.getDateString(start) + "-" + this.getDateString(end);
+      dateString = this.getDateString(start) + '-' + this.getDateString(end);
     }
     return dateString;
   }
   getDateString(date: Date): string {
-    let dateString = "";
-    dateString += date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    let dateString = '';
+    dateString += date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     dateString +=
       date.getMonth() + 1 < 10
-        ? ".0" + (date.getMonth() + 1)
-        : "." + (date.getMonth() + 1);
-    dateString += "." + date.getFullYear();
+        ? '.0' + (date.getMonth() + 1)
+        : '.' + (date.getMonth() + 1);
+    dateString += '.' + date.getFullYear();
     return dateString;
   }
   loadMoreAlbums(): void {
@@ -139,13 +139,13 @@ export class AlbumsComponent implements OnInit {
       .then(data => {
         data = data.slice(
           this.limit * (this.currentPage - 1),
-          this.limit * (this.currentPage - 1) + 9
+          this.limit * (this.currentPage - 1) + 9,
         );
         for (let album of data) {
           this.getImageOfAlbum(album).then(data => {
             this.restOfAlbums.push(album);
             this.restOfAlbums.sort(function(a, b) {
-              return parseInt(a["@attr"].rank) - parseInt(b["@attr"].rank);
+              return parseInt(a['@attr'].rank) - parseInt(b['@attr'].rank);
             });
             if (this.restOfAlbums.length % 9 == 0) {
               this.loadMoreDisabled = false;
@@ -157,7 +157,7 @@ export class AlbumsComponent implements OnInit {
       }, this.showErrorMessage);
   }
   goToAlbum(album: string, artist: string) {
-    this.router.navigate(["/album", album, artist]);
+    this.router.navigate(['/album', album, artist]);
   }
   changeTimeRange(months: number): void {
     this.loadMoreDisabled = true;
@@ -176,20 +176,20 @@ export class AlbumsComponent implements OnInit {
       new Date(
         event.beginDate.year,
         event.beginDate.month - 1,
-        event.beginDate.day
-      ).getTime() / 1000
+        event.beginDate.day,
+      ).getTime() / 1000,
     );
     this.endDate = Math.floor(
       new Date(
         event.endDate.year,
         event.endDate.month - 1,
-        event.endDate.day
-      ).getTime() / 1000
+        event.endDate.day,
+      ).getTime() / 1000,
     );
     this.loadAlbums();
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
   stopRefreshing() {
     this.isRequesting = false;

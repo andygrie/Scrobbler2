@@ -4,7 +4,12 @@
 <div id="spinner_holder">
   <my-spinner [isRunning]="isRequesting"></my-spinner>
 </div>
-<mat-grid-list cols="6" gutterSize="5" *ngIf="artistsLoaded()" id="list-artists">
+<mat-grid-list
+  cols="6"
+  gutterSize="5"
+  *ngIf="artistsLoaded()"
+  id="list-artists"
+>
   <mat-grid-tile
     *ngIf="topArtist"
     [colspan]="2"

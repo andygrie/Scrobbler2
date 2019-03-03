@@ -1,19 +1,19 @@
-import { Component, OnInit, HostListener } from "@angular/core";
-import { Router } from "@angular/router";
-import { LocalStorageService } from "../../services/localStorage/local-storage.service";
-import { IMyOptions, IMyDateRangeModel } from "mydaterangepicker";
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/localStorage/local-storage.service';
+import { IMyOptions, IMyDateRangeModel } from 'mydaterangepicker';
 
-import { UserService } from "../../services/user/user.service";
-import { ArtistService } from "../../services/artist/artist.service";
-import { DialogService } from "../../services/dialog/dialog.service";
+import { UserService } from '../../services/user/user.service';
+import { ArtistService } from '../../services/artist/artist.service';
+import { DialogService } from '../../services/dialog/dialog.service';
 
 @Component({
-  selector: "artists",
-  templateUrl: "./artists.component.html",
-  styleUrls: ["./artists.component.css"]
+  selector: 'artists',
+  templateUrl: './artists.component.html',
+  styleUrls: ['./artists.component.css'],
 })
 export class ArtistsComponent implements OnInit {
-  title = "Artists";
+  title = 'Artists';
   topArtist: any;
   topNineArtists: any[];
   restOfArtists: any[];
@@ -27,23 +27,23 @@ export class ArtistsComponent implements OnInit {
   loadHelper: boolean;
 
   myDateRangePickerOptions: IMyOptions = {
-    dateFormat: "dd.mm.yyyy",
+    dateFormat: 'dd.mm.yyyy',
     showClearBtn: false,
     showClearDateRangeBtn: false,
-    editableDateRangeField: false
+    editableDateRangeField: false,
   };
   dateRange: Object;
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   track(event) {
-    console.log("scroll");
+    console.log('scroll');
     if (
       this.loadHelper == true &&
       window.innerHeight + window.scrollY >= document.body.offsetHeight
     ) {
       this.loadHelper = false;
       this.loadMoreArtists();
-      console.log("bottom");
+      console.log('bottom');
     }
   }
 
@@ -52,7 +52,7 @@ export class ArtistsComponent implements OnInit {
     private artistService: ArtistService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
   ngOnInit(): void {
     this.loadArtists();
@@ -65,18 +65,18 @@ export class ArtistsComponent implements OnInit {
       .getWeeklyArtistChart(
         this.startDate,
         this.endDate,
-        this.localStorageService.get("name").toString()
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         data = data.slice(
           this.limit * (this.currentPage - 1),
-          this.limit * (this.currentPage - 1) + 9
+          this.limit * (this.currentPage - 1) + 9,
         );
         for (let artist of data) {
           this.getImageOfArtist(artist).then(data => {
             this.restOfArtists.push(artist);
             this.restOfArtists.sort(function(a, b) {
-              return parseInt(a["@attr"].rank) - parseInt(b["@attr"].rank);
+              return parseInt(a['@attr'].rank) - parseInt(b['@attr'].rank);
             });
             if (this.restOfArtists.length % 9 == 0) {
               this.loadMoreDisabled = false;
@@ -91,12 +91,12 @@ export class ArtistsComponent implements OnInit {
     this.dialogService
       .confirmAlbumsOfArtistDialog(
         artistName,
-        [this.localStorageService.get("name").toString()],
+        [this.localStorageService.get('name').toString()],
         this.startDate,
-        this.endDate
+        this.endDate,
       )
       .subscribe(res => {
-        if (res) this.router.navigate(["/artist", artistName]);
+        if (res) this.router.navigate(['/artist', artistName]);
       });
   }
   changeTimeRange(months: number): void {
@@ -117,7 +117,7 @@ export class ArtistsComponent implements OnInit {
       .getWeeklyArtistChart(
         this.startDate,
         this.endDate,
-        this.localStorageService.get("name").toString()
+        this.localStorageService.get('name').toString(),
       )
       .then(data => {
         let begin = new Date(this.startDate * 1000);
@@ -126,13 +126,13 @@ export class ArtistsComponent implements OnInit {
           beginDate: {
             year: begin.getFullYear(),
             month: begin.getMonth() + 1,
-            day: begin.getDate()
+            day: begin.getDate(),
           },
           endDate: {
             year: end.getFullYear(),
             month: end.getMonth() + 1,
-            day: end.getDate()
-          }
+            day: end.getDate(),
+          },
         };
         this.currentPage = 1;
         this.topArtist = data[0];
@@ -146,7 +146,7 @@ export class ArtistsComponent implements OnInit {
             this.getImageOfArtist(artist).then(data => {
               this.topNineArtists.push(artist);
               this.topNineArtists.sort(function(a, b) {
-                return parseInt(a["@attr"].rank) - parseInt(b["@attr"].rank);
+                return parseInt(a['@attr'].rank) - parseInt(b['@attr'].rank);
               });
               if (this.topNineArtists.length % 8 == 0) {
                 this.loadMoreDisabled = false;
@@ -161,29 +161,29 @@ export class ArtistsComponent implements OnInit {
   }
   getImageOfArtist(artist: any): Promise<any> {
     return this.artistService
-      .getInfo(artist.name, this.localStorageService.get("name").toString())
+      .getInfo(artist.name, this.localStorageService.get('name').toString())
       .then(data => {
         artist.image = data.artist.image;
       }, this.showErrorMessage);
   }
   getDateTitle(): string {
-    let dateString: string = "";
-    if (this.startDate == 1) dateString = "all time";
+    let dateString: string = '';
+    if (this.startDate == 1) dateString = 'all time';
     else {
       let start = new Date(this.startDate * 1000);
       let end = new Date(this.endDate * 1000);
-      dateString = this.getDateString(start) + "-" + this.getDateString(end);
+      dateString = this.getDateString(start) + '-' + this.getDateString(end);
     }
     return dateString;
   }
   getDateString(date: Date): string {
-    let dateString = "";
-    dateString += date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+    let dateString = '';
+    dateString += date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
     dateString +=
       date.getMonth() + 1 < 10
-        ? ".0" + (date.getMonth() + 1)
-        : "." + (date.getMonth() + 1);
-    dateString += "." + date.getFullYear();
+        ? '.0' + (date.getMonth() + 1)
+        : '.' + (date.getMonth() + 1);
+    dateString += '.' + date.getFullYear();
     return dateString;
   }
   onDateRangeChanged(event: IMyDateRangeModel) {
@@ -191,20 +191,20 @@ export class ArtistsComponent implements OnInit {
       new Date(
         event.beginDate.year,
         event.beginDate.month - 1,
-        event.beginDate.day
-      ).getTime() / 1000
+        event.beginDate.day,
+      ).getTime() / 1000,
     );
     this.endDate = Math.floor(
       new Date(
         event.endDate.year,
         event.endDate.month - 1,
-        event.endDate.day
-      ).getTime() / 1000
+        event.endDate.day,
+      ).getTime() / 1000,
     );
     this.loadArtists();
   }
   showErrorMessage(error: any): void {
-    alert(error.status + " " + error.statusText + " " + error["_body"]);
+    alert(error.status + ' ' + error.statusText + ' ' + error['_body']);
   }
   stopRefreshing() {
     this.isRequesting = false;
