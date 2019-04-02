@@ -236,6 +236,8 @@ export class RecentTracksComponent implements OnInit {
                 track.streamable =
                   correctedScrobbles.recenttracks.track[0].streamable;
                 track.url = correctedScrobbles.recenttracks.track[0].url;
+              } else {
+                track.album['#text'] = album;
               }
               track.selected = false;
               if (!this.anyTrackSelected()) {
