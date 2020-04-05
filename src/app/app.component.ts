@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LocalStorageService } from './services/localStorage/local-storage.service';
 import { DialogService } from './services/dialog/dialog.service';
 
+import { CsrfService } from './services/csrf/csrf.service';
 import { UserService } from './services/user/user.service';
 
 @Component({
@@ -18,11 +19,13 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService,
     private router: Router,
+    private csrfService: CsrfService,
     private userService: UserService,
     private dialogService: DialogService,
   ) {}
   ngOnInit(): void {
     this.localStorageService.set('APIURL', 'http://ws.audioscrobbler.com/2.0');
+    this.localStorageService.set('LOGINURL', 'https://secure.last.fm/login');
     this.route.queryParams.subscribe((params: Params) => {
       //If token is set (=if you are redirected from last.fm) set session key for other requests
       console.log(params);
@@ -36,6 +39,7 @@ export class AppComponent implements OnInit {
         });
       } else {
         this.startPolling();
+        this.csrfService.getCSRFToken();
       }
     });
   }

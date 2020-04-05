@@ -16,6 +16,7 @@ import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { UserService } from './services/user/user.service';
 import { ArtistService } from './services/artist/artist.service';
+import { CsrfService } from './services/csrf/csrf.service';
 import { TrackService } from './services/track/track.service';
 import { AlbumService } from './services/album/album.service';
 import { DialogService } from './services/dialog/dialog.service';
@@ -78,6 +79,7 @@ declare var require: any;
     AuthenticationService,
     UserService,
     ArtistService,
+    CsrfService,
     TrackService,
     AlbumService,
     TagService,
